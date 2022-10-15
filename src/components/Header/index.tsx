@@ -1,3 +1,4 @@
+import { useState } from "react";
 import * as S from "./styles";
 
 interface Props {
@@ -5,6 +6,8 @@ interface Props {
 }
 
 const Header = ({ themeToggle }: Props) => {
+  const [isLogged, setIsLogged] = useState(false);
+
   return (
     <S.Container>
       <S.RightSide>
@@ -28,15 +31,22 @@ const Header = ({ themeToggle }: Props) => {
           <S.Overlay />
           <S.Content>
             <S.TopSide>
-              <S.ProfileData>
-                <S.Avatar>
-                  <S.AvatarIcon />
-                </S.Avatar>
-                <S.ProfileInfo>
-                  <S.ProfileName>José Crespeudo</S.ProfileName>
-                  <S.ProfileEdit to="/profile_edit">editar</S.ProfileEdit>
-                </S.ProfileInfo>
-              </S.ProfileData>
+              {isLogged ? (
+                <S.ProfileData>
+                  <S.Avatar>
+                    <S.AvatarIcon />
+                  </S.Avatar>
+                  <S.ProfileInfo>
+                    <S.ProfileName>José Crespeudo</S.ProfileName>
+                    <S.ProfileEdit to="/profile_edit">editar</S.ProfileEdit>
+                  </S.ProfileInfo>
+                </S.ProfileData>
+              ) : (
+                <S.NotLogged>
+                  <S.Login to="/sign_in">Entrar na conta</S.Login>
+                  <S.CreateAccount to="/sign_up">Criar Conta</S.CreateAccount>
+                </S.NotLogged>
+              )}
               <S.MidSide>
                 <S.MenuItem to="/settings">Configurações</S.MenuItem>
 

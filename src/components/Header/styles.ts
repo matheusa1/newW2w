@@ -142,6 +142,8 @@ export const Content = styled(Dialog.Content)`
   justify-content: space-between;
   align-items: center;
 
+  overflow: auto;
+
   padding: 25px;
 `;
 
@@ -242,6 +244,34 @@ export const Close = styled(Dialog.Close)`
   font-family: Rubik;
   font-size: 18px;
   font-weight: 400;
+
+  cursor: pointer;
+`;
+
+export const NotLogged = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+
+  gap: 10px;
+`;
+
+export const Login = styled(Link)`
+  all: unset;
+
+  font-family: Rubik;
+  font-size: 18px;
+  font-weight: 400;
+  cursor: pointer;
+`;
+export const CreateAccount = styled(Link)`
+  all: unset;
+
+  font-family: Rubik;
+  font-size: 18px;
+  font-weight: 400;
+  color: #0085ff;
 
   cursor: pointer;
 `;
