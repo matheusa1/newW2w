@@ -1,10 +1,46 @@
-// import { Container } from './styles';
+import { FormEvent } from "react";
+import { useNavigate } from "react-router-dom";
+import Button from "../../components/Button";
+import Input from "../../components/Input";
+import Title from "../../components/Title";
+import * as S from "./styles";
 
 const SignUp = () => {
+  const navigate = useNavigate();
+
+  function onHandleClick(event: FormEvent) {
+    event.preventDefault();
+
+    const formData = new FormData(event.target as HTMLFormElement);
+    const data = Object.fromEntries(formData);
+
+    console.log(data);
+
+    navigate("/");
+  }
+
   return (
-    <div>
-      <h1>SignUp Page</h1>
-    </div>
+    <S.Container>
+      <Title text="CADASTRE-SE" />
+
+      <S.Form onSubmit={onHandleClick}>
+        <Input name="name" text="Nome" />
+        <Input name="email" text="E-mail" />
+        <Input text="Insira seu e-mail novamente" />
+        <Input type="password" name="password" text="Senha" />
+        <Input type="password" name="name" text="Insira sua senha novamente" />
+        <S.Buttons>
+          <Button type="submit" text="CADASTRAR" color="purple" />
+          <Button
+            onClick={() => {
+              navigate("/");
+            }}
+            text="VOLTAR"
+            color="blue"
+          />
+        </S.Buttons>
+      </S.Form>
+    </S.Container>
   );
 };
 
