@@ -26,8 +26,11 @@ export const InputHome = styled.input`
   border-radius: 9999px;
   border: none;
 
-  background: ${(props) => props?.theme?.body};
-  color: ${(props) => props.theme.text};
+  color: #000;
+
+  &::placeholder {
+    color: #000;
+  }
 
   font-weight: 400;
   font-size: 1.5rem;
@@ -35,9 +38,11 @@ export const InputHome = styled.input`
 
 export const InputIcon = styled(BsSearch)`
   position: absolute;
-  right: 1.5rem;
-  top: 1.5rem;
-  color: ${(props) => props.theme.text};
+  right: 1.65rem;
+  top: 1.65rem;
+  color: #000;
+  width: 24px;
+  height: 24px;
 `;
 
 export const Carousel = styled.div``;

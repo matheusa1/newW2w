@@ -36,7 +36,7 @@ const Dashboard = () => {
     <S.Container>
       <S.Text>O que está procurando?</S.Text>
       <S.InputWrapper>
-        <S.InputHome placeholder="Filme, série, anime ..." />
+        <S.InputHome placeholder="Filme, série, anime, ..." />
         <S.InputIcon />
       </S.InputWrapper>
       <Title px="2.5rem" text="DESTAQUES" />
