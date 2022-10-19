@@ -13,6 +13,10 @@ export const Container = styled.div<ContainerProps>`
 
   border-radius: 50px;
 
+  @media (max-width: 34.3rem) {
+    display: none;
+  }
+
   display: flex;
   justify-content: center;
 `;
