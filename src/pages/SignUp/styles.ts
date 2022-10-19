@@ -4,29 +4,29 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
 
-  width: 830px;
-  margin: 10px auto 0;
+  width: 52rem;
+  margin: 1rem auto 0;
 
-  @media (max-width: 850px) {
+  @media (max-width: 53rem) {
     width: 100%;
-    margin: 60px auto;
+    margin: 3.7rem auto;
 
     > div {
       display: none;
     }
   }
 
-  padding: 30px;
+  padding: 2rem;
 
-  gap: 64px;
+  gap: 2rem;
 `;
 
 export const Form = styled.form`
   display: flex;
   flex-direction: column;
 
-  padding: 40px;
-  gap: 20px;
+  padding: 2.5rem;
+  gap: 1.25rem;
 
   background: ${(props) => props?.theme?.backgroundItems};
   backdrop-filter: blur(2px);
@@ -36,15 +36,14 @@ export const Form = styled.form`
 
 export const Buttons = styled.div`
   display: flex;
-  justify-content: space-between;
 
   width: 100%;
 
-  gap: 60px;
+  gap: 3.75rem;
 
-  @media (max-width: 550px) {
+  @media (max-width: 34.375rem) {
     flex-direction: column;
-    gap: 10px;
+    gap: 1rem;
     width: 50%;
     margin: 0 auto;
   }

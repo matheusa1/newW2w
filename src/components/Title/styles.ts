@@ -6,7 +6,7 @@ interface ContainerProps {
 
 export const Container = styled.div<ContainerProps>`
   width: ${(props) => (props?.px ? "auto" : "100%")};
-  padding: ${(props) => `10px ${props?.px}` || "10px 0"};
+  padding: ${(props) => `0.625rem ${props?.px}` || "0.625rem 0"};
 
   background: ${(props) => props?.theme?.backgroundItems};
   backdrop-filter: blur(2px);
@@ -19,6 +19,6 @@ export const Container = styled.div<ContainerProps>`
 
 export const Text = styled.h1`
   font-weight: 700;
-  font-size: 64px;
+  font-size: 4rem;
   color: #fafafa;
 `;

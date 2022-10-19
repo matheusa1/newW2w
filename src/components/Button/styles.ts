@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-interface ButtonProps {
+export interface ButtonProps {
   color?: string;
 }
 
@@ -14,7 +14,7 @@ export const Button = styled.button<ButtonProps>`
   all: unset;
   cursor: pointer;
 
-  padding: 20px 0;
+  padding: 1.2rem 0;
 
   display: flex;
   justify-content: center;
@@ -26,11 +26,11 @@ export const Button = styled.button<ButtonProps>`
 
   border-radius: 50px;
 
-  font-size: 24px;
+  font-size: 1.5rem;
   font-weight: 700;
 
-  @media (max-width: 550px) {
-    font-size: 18px;
+  @media (max-width: 34.3rem) {
+    font-size: 1.1rem;
     overflow: hidden;
   }
 

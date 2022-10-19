@@ -12,10 +12,10 @@ export const Container = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 14px 40px 0 0;
+  padding: 1rem 2.5rem 0 0;
 
-  @media (min-width: 550px) {
-    padding: 14px 40px 0;
+  @media (min-width: 34.3rem) {
+    padding: 1rem 2.5rem 0;
   }
 `;
 
@@ -23,18 +23,18 @@ export const RightSide = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  width: 400px;
+  width: 25rem;
 
-  @media (min-width: 550px) {
+  @media (min-width: 34.3rem) {
     width: 100%;
     justify-content: start;
-    gap: 40px;
+    gap: 2.5rem;
   }
 `;
 
 export const Logo = styled(Link)`
   all: unset;
-  font-size: 24px;
+  font-size: 1.5rem;
   font-weight: 400;
   font-family: Margarine;
 
@@ -44,9 +44,9 @@ export const Logo = styled(Link)`
     opacity: 0.7;
   }
 
-  @media (min-width: 550px) {
-    font-size: 48px;
-    line-height: 65px;
+  @media (min-width: 34.3rem) {
+    font-size: 3rem;
+    line-height: 4rem;
   }
 `;
 
@@ -65,18 +65,18 @@ export const HeaderItem = styled(Link)`
 export const HeaderName = styled.span`
   display: none;
 
-  @media (min-width: 550px) {
+  @media (min-width: 34.3rem) {
     display: inline;
-    font-size: 24px;
+    font-size: 1.5rem;
     font-weight: 400;
   }
 `;
 
 const iconCSS = css`
-  width: 24px;
-  height: 24px;
+  width: 1.5rem;
+  height: 1.5rem;
 
-  @media (min-width: 550px) {
+  @media (min-width: 34.3rem) {
     display: none;
   }
 `;
@@ -90,8 +90,8 @@ export const SearchIcon = styled(AiOutlineSearch)`
 `;
 
 export const MenuIcon = styled(HiMenu)`
-  width: 30px;
-  height: 30px;
+  width: 1.8rem;
+  height: 1.8rem;
 `;
 
 export const Root = styled(Dialog.Root)`
@@ -131,9 +131,9 @@ export const Content = styled(Dialog.Content)`
   max-height: 100vh;
   min-height: 95vh;
 
-  @media (min-width: 550px) {
-    min-width: 300px;
-    width: 300px;
+  @media (min-width: 34.3rem) {
+    min-width: 18.7rem;
+    width: 18.7rem;
   }
 
   display: flex;
@@ -144,7 +144,7 @@ export const Content = styled(Dialog.Content)`
 
   overflow: auto;
 
-  padding: 25px;
+  padding: 1.5rem;
 `;
 
 export const TopSide = styled.div`
@@ -157,7 +157,7 @@ export const ProfileData = styled.div`
   display: flex;
   align-items: center;
 
-  gap: 20px;
+  gap: 1.25rem;
 `;
 
 export const Avatar = styled.div`
@@ -169,12 +169,12 @@ export const Avatar = styled.div`
 
   border-radius: 9999px;
 
-  padding: 10px;
+  padding: 0.6rem;
 `;
 
 export const AvatarIcon = styled(FaUserTie)`
-  width: 40px;
-  height: 40px;
+  width: 2.5rem;
+  height: 2.5rem;
 
   fill: #343434;
 `;
@@ -183,19 +183,19 @@ export const ProfileInfo = styled.div`
   display: flex;
   flex-direction: column;
 
-  gap: 4px;
+  gap: 0.2rem;
 `;
 
 export const ProfileName = styled.span`
   font-family: Rubik;
-  font-size: 18px;
+  font-size: 1.1rem;
   font-weight: 400;
 `;
 
 export const ProfileEdit = styled(Link)`
   all: unset;
   font-weight: 400;
-  font-size: 16px;
+  font-size: 1rem;
   color: #0085ff;
 
   cursor: pointer;
@@ -207,15 +207,15 @@ export const MidSide = styled.div`
 
   align-items: center;
 
-  gap: 20px;
+  gap: 1.2rem;
 
-  margin-top: 40px;
+  margin-top: 2.5rem;
 `;
 
 export const MenuItem = styled(Link)`
   all: unset;
   font-family: Rubik;
-  font-size: 18px;
+  font-size: 1.1rem;
   font-weight: 400;
 
   cursor: pointer;
@@ -231,7 +231,7 @@ export const Divider = styled.div`
 export const MenuButton = styled.button`
   all: unset;
   font-family: Rubik;
-  font-size: 18px;
+  font-size: 1.1rem;
   font-weight: 400;
 
   cursor: pointer;
@@ -242,7 +242,7 @@ export const BottomSide = styled.div``;
 export const Close = styled(Dialog.Close)`
   all: unset;
   font-family: Rubik;
-  font-size: 18px;
+  font-size: 1.1rem;
   font-weight: 400;
 
   cursor: pointer;
@@ -254,22 +254,23 @@ export const NotLogged = styled.div`
 
   align-items: center;
 
-  gap: 10px;
+  gap: 0.6rem;
 `;
 
 export const Login = styled(Link)`
   all: unset;
 
   font-family: Rubik;
-  font-size: 18px;
+  font-size: 1.1rem;
   font-weight: 400;
   cursor: pointer;
 `;
+
 export const CreateAccount = styled(Link)`
   all: unset;
 
   font-family: Rubik;
-  font-size: 18px;
+  font-size: 1.1rem;
   font-weight: 400;
   color: #0085ff;
 

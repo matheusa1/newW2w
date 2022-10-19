@@ -9,7 +9,7 @@ export const Input = styled.input`
   justify-content: center;
   width: 100%;
 
-  padding: 15px;
+  padding: 1rem;
 
   background: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(2px);
@@ -21,7 +21,7 @@ export const Input = styled.input`
   color: ${(props) => props?.theme?.text};
   font-family: Poppins;
   font-weight: 700;
-  font-size: 24px;
+  font-size: 1.5rem;
 
   &::placeholder {
     opacity: 0.7;
@@ -31,7 +31,7 @@ export const Input = styled.input`
     outline: 1px solid #fafafa;
   }
 
-  @media (max-width: 550px) {
-    font-size: 18px;
+  @media (max-width: 34rem) {
+    font-size: 1.1rem;
   }
 `;
