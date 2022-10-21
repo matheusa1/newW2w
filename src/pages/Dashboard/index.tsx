@@ -41,8 +41,6 @@ const Dashboard = () => {
         `${moviesURL}top_rated?${apiKey}&language=pt-BR`
       );
       setTopMovies(response.data.results);
-
-      console.log(response.data.results);
     } catch (error) {
       console.log(error);
     }
