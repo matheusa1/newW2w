@@ -19,6 +19,8 @@ export const LeftSide = styled.div`
   flex-direction: column;
   align-items: center;
 
+  position: fixed;
+
   gap: 1rem;
 `;
 
@@ -26,13 +28,19 @@ export const PosterImage = styled.img`
   width: 25.5rem;
 `;
 
-export const RateWrapper = styled.div``;
-
-export const RateText = styled.div``;
+export const RateWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+`;
 
 export const MidSide = styled.div`
   display: flex;
   flex-direction: column;
+
+  margin: 0 auto;
+  width: 44%;
 
   gap: 1rem;
 `;
@@ -109,13 +117,53 @@ export const RateInfo = styled.div`
   font-size: 1rem;
 `;
 
+export const SimilarMoviesWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
+
+export const SimilarMoviesList = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+`;
+
+export const SimilarMoviesItem = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: wrap;
+
+  gap: 0.5rem;
+
+  width: 15rem;
+
+  cursor: pointer;
+  border-radius: 0.5rem;
+  overflow: hidden;
+
+  background: ${({ theme }: any) => theme.menuColor};
+
+  padding: 1rem;
+`;
+
+export const SimilarMoviesPoster = styled.img`
+  width: 100%;
+`;
+
+export const SimilarMoviesTitle = styled.div``;
+
 export const RightSide = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
 
   gap: 3rem;
+
+  position: fixed;
+
+  right: 3rem;
 
   min-width: 25.5rem;
 `;
