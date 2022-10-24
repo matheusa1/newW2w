@@ -22,7 +22,7 @@ export const Text = styled.div`
   font-size: 1.5rem;
 `;
 
-export const InputWrapper = styled.div`
+export const InputWrapper = styled.form`
   display: flex;
   position: relative;
   width: 63rem;
@@ -48,13 +48,20 @@ export const InputHome = styled.input`
   font-size: 1.5rem;
 `;
 
-export const InputIcon = styled(BsSearch)`
+export const SubmitIcon = styled.button`
+  all: unset;
+  cursor: pointer;
   position: absolute;
   right: 1.65rem;
   top: 1.65rem;
-  color: #000;
   width: 1.5rem;
   height: 1.5rem;
+`;
+
+export const InputIcon = styled(BsSearch)`
+  color: #000;
+  width: 100%;
+  height: 100%;
 `;
 
 export const CarouselWrapper = styled.div`
