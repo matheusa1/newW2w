@@ -1,6 +1,7 @@
 import styled, { css } from "styled-components";
 
 import { BsStarFill } from "react-icons/bs";
+import { NavLink } from "react-router-dom";
 
 export type TitleProps = {
   level: 1 | 2 | 3 | 4 | 5 | 6;
@@ -10,8 +11,16 @@ export type TitleProps = {
 
 export const Container = styled.div`
   display: flex;
-  padding: 3rem 3rem 0;
+  padding: 3rem 3rem;
   gap: 3rem;
+
+  @media (max-width: 34.3rem) {
+    flex-direction: column;
+  }
+
+  @media (max-width: 65rem) {
+    flex-direction: column;
+  }
 `;
 
 export const LeftSide = styled.div`
@@ -20,12 +29,37 @@ export const LeftSide = styled.div`
   align-items: center;
 
   position: fixed;
+  width: 25%;
 
   gap: 1rem;
+
+  @media (max-width: 34.3rem) {
+    position: static;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  @media (max-width: 65rem) {
+    position: static;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  @media (max-width: 87.5rem) {
+    position: static;
+  }
 `;
 
 export const PosterImage = styled.img`
   width: 25.5rem;
+
+  @media (max-width: 100rem) {
+    width: 100%;
+  }
+
+  @media (max-width: 65rem) {
+    width: 50%;
+  }
 `;
 
 export const RateWrapper = styled.div`
@@ -33,6 +67,7 @@ export const RateWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 1rem;
+  width: 100%;
 `;
 
 export const MidSide = styled.div`
@@ -43,6 +78,10 @@ export const MidSide = styled.div`
   width: 44%;
 
   gap: 1rem;
+
+  @media (max-width: 65rem) {
+    width: 100%;
+  }
 `;
 
 export const Titles = styled.div`
@@ -85,7 +124,10 @@ export const GenresItem = styled.span`
   opacity: 0.8;
 `;
 
-export const RatesWrapper = styled.div``;
+export const RatesWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 
 export const IMDbRate = styled.div`
   display: flex;
@@ -127,9 +169,14 @@ export const SimilarMoviesList = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
+
+  @media (max-width: 87.5rem) {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+  }
 `;
 
-export const SimilarMoviesItem = styled.div`
+export const SimilarMoviesItem = styled(NavLink)`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -145,40 +192,78 @@ export const SimilarMoviesItem = styled.div`
 
   background: ${({ theme }: any) => theme.menuColor};
 
+  transition: all 0.2s;
+
+  &:hover {
+    transform: scale(1.05);
+    opacity: 0.7;
+  }
+
   padding: 1rem;
+  text-decoration: none;
+
+  @media (max-width: 87.5rem) {
+    overflow: visible;
+  }
 `;
 
 export const SimilarMoviesPoster = styled.img`
-  width: 100%;
+  width: 10rem;
 `;
 
-export const SimilarMoviesTitle = styled.div``;
+export const SimilarMoviesTitle = styled.span`
+  text-decoration: none;
+  font-family: Rubik;
+  font-weight: 400;
+  font-size: 1rem;
+  opacity: 0.8;
+  color: ${({ theme }: any) => theme.text};
+`;
 
 export const RightSide = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
 
-  gap: 3rem;
+  gap: 1rem;
 
   position: fixed;
 
   right: 3rem;
 
-  min-width: 25.5rem;
+  width: 20%;
+
+  @media (max-width: 34.3rem) {
+    position: static;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  @media (max-width: 65rem) {
+    position: static;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 87.5rem) {
+    position: static;
+  }
 `;
 
 export const WhereToWatch = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  width: 100%;
 
   align-items: center;
 `;
 
 export const WhereToWatchClass = styled.div`
   display: flex;
+  align-items: center;
   flex-direction: column;
+  width: 100%;
 
   gap: 0.5rem;
 
@@ -190,9 +275,11 @@ export const WhereToWatchClass = styled.div`
 `;
 
 export const WhereToWatchProvidersLogo = styled.div`
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  display: flex;
+  flex-wrap: wrap;
   gap: 1rem;
+  width: 100%;
+  justify-content: center;
 `;
 
 export const LogoProvider = styled.img`
@@ -207,6 +294,7 @@ export const IsAdult = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  width: 100%;
 
   align-items: center;
 `;

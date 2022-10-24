@@ -84,7 +84,7 @@ const MediaInfo = () => {
 
   useEffect(() => {
     getMovieInfo();
-  }, []);
+  }, [params]);
 
   return (
     <S.Container>
@@ -93,7 +93,7 @@ const MediaInfo = () => {
         <S.RateWrapper>
           <S.Title level={1}>Avaliar</S.Title>
           <StarRatings
-            starDimension="40px"
+            starDimension="1.5rem"
             rating={Rate}
             changeRating={changeRate}
             numberOfStars={5}
@@ -136,7 +136,7 @@ const MediaInfo = () => {
           <S.Title level={3}>Filmes Similares</S.Title>
           <S.SimilarMoviesList>
             {SimilarMovies?.map((movie: MovieInfo, index) => (
-              <S.SimilarMoviesItem key={index}>
+              <S.SimilarMoviesItem key={index} to={`/media/${movie.id}`}>
                 <S.SimilarMoviesPoster
                   src={`${getImage}${movie.poster_path}`}
                 />
@@ -191,7 +191,7 @@ const MediaInfo = () => {
             </S.WhereToWatchClass>
           </S.WhereToWatch>
         ) : (
-          <S.Title level={3}>Não há plataforma assistir</S.Title>
+          <S.Title level={3}>Não há plataforma para se assistir</S.Title>
         )}
         <S.IsAdult>
           <S.Title level={1}>Classificação</S.Title>
