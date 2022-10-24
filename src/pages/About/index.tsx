@@ -1,10 +1,15 @@
-// import { Container } from './styles';
+import * as S from './styles';
+
+import Title from "../../components/Title";
 
 const About = () => {
   return (
-    <div>
-      <h1>AboutPage</h1>
-    </div>
+    <S.Container>
+      <Title text="QUEM SOMOS" />
+      <S.Content>
+        <S.ContentText>Somos seres Viventes</S.ContentText>
+      </S.Content>
+    </S.Container>
   );
 };
 

@@ -1,4 +1,5 @@
 import { useParams } from "react-router";
+import StarRatings from "react-star-ratings";
 import Axios from "axios";
 import { useEffect, useState } from "react";
 
@@ -47,6 +48,8 @@ interface classProviderProps {
 const MediaInfo = () => {
   const [MovieInfo, setMovieInfo] = useState<MovieInfo>();
   const [WatchProviders, setWatchProviders] = useState<classProviderProps>();
+  const [Rate, setRate] = useState<number>(0);
+  const [SimilarMovies, setSimilarMovies] = useState<MovieInfo[]>([]);
 
   const params = useParams();
   const { id } = params;
@@ -59,27 +62,46 @@ const MediaInfo = () => {
       const responseWatchProvider = await Axios.get(
         `${moviesURL}${id}/watch/providers?${apiKey}&language=pt-BR`
       );
+      const responseSimilarMovies = await Axios.get(
+        `${moviesURL}${id}/similar?${apiKey}&language=pt-BR`
+      );
 
       setMovieInfo(responseMovieInfo?.data);
       setWatchProviders(responseWatchProvider?.data?.results?.PT);
+      setSimilarMovies(responseSimilarMovies?.data?.results);
 
-      console.log(responseMovieInfo?.data);
-      console.log(responseWatchProvider?.data);
+      console.log({ responseMovieInfo });
+      console.log({ responseWatchProvider });
+      console.log(responseSimilarMovies?.data?.results);
     } catch (error) {
       console.log(error);
     }
   };
 
+  const changeRate = (newRating: number) => {
+    setRate(newRating);
+  };
+
   useEffect(() => {
     getMovieInfo();
-  }, []);
+  }, [params]);
 
   return (
     <S.Container>
       <S.LeftSide>
         <S.PosterImage src={`${getImage}${MovieInfo?.poster_path}`} />
         <S.RateWrapper>
-          <S.RateText>Avaliar</S.RateText>
+          <S.Title level={1}>Avaliar</S.Title>
+          <StarRatings
+            starDimension="1.5rem"
+            rating={Rate}
+            changeRating={changeRate}
+            numberOfStars={5}
+            starSpacing="15px"
+            starRatedColor="#FFD700"
+            starHoverColor="#FFD700"
+            starEmptyColor="#9e8600"
+          />
         </S.RateWrapper>
       </S.LeftSide>
       <S.MidSide>
@@ -110,6 +132,19 @@ const MediaInfo = () => {
             </S.NameRateWrapper>
           </S.IMDbRate>
         </S.RatesWrapper>
+        <S.SimilarMoviesWrapper>
+          <S.Title level={3}>Filmes Similares</S.Title>
+          <S.SimilarMoviesList>
+            {SimilarMovies?.map((movie: MovieInfo, index) => (
+              <S.SimilarMoviesItem key={index} to={`/media/${movie.id}`}>
+                <S.SimilarMoviesPoster
+                  src={`${getImage}${movie.poster_path}`}
+                />
+                <S.SimilarMoviesTitle>{movie.title}</S.SimilarMoviesTitle>
+              </S.SimilarMoviesItem>
+            ))}
+          </S.SimilarMoviesList>
+        </S.SimilarMoviesWrapper>
       </S.MidSide>
       <S.RightSide>
         <S.Title level={1}>Onde assistir</S.Title>
@@ -156,7 +191,7 @@ const MediaInfo = () => {
             </S.WhereToWatchClass>
           </S.WhereToWatch>
         ) : (
-          <S.Title level={3}>Não há plataforma assistir</S.Title>
+          <S.Title level={3}>Não há plataforma para se assistir</S.Title>
         )}
         <S.IsAdult>
           <S.Title level={1}>Classificação</S.Title>
