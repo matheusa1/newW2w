@@ -1,8 +1,9 @@
-import * as S from "./styles";
-
-import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
 import Axios from "axios";
+import { useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+
+import * as S from "./styles";
+import PaginationWrapper from "../../components/Pagination";
 
 const moviesURL = import.meta.env.VITE_SEARCH;
 const apiKey = import.meta.env.VITE_API_KEY;
@@ -28,7 +29,8 @@ interface MovieInfo {
 const Search = () => {
   const [search, setSearch] = useState("");
   const [results, setResults] = useState<MovieInfo[]>([]);
-  const [totalPages, setTotalPages] = useState(0);
+  const [totalResults, setTotalResults] = useState(0);
+  const [page, setPage] = useState(1);
   const location = useLocation();
 
   const requestSearch = async () => {
@@ -37,16 +39,14 @@ const Search = () => {
 
       search === "" || search === undefined
         ? (response = await Axios.get(
-            `${moviesURL}?${apiKey}&language=pt-BR&query=a`
+            `${moviesURL}?${apiKey}&language=pt-BR&query=a&page=${page}`
           ))
         : (response = await Axios.get(
-            `${moviesURL}?${apiKey}&language=pt-BR&query=${search}`
+            `${moviesURL}?${apiKey}&language=pt-BR&query=${search}&page=${page}`
           ));
 
       setResults(response.data.results);
-      setTotalPages(response.data.total_pages);
-
-      console.log(response.data);
+      setTotalResults(response.data.total_results);
     } catch (error) {
       console.log(error);
     }
@@ -54,7 +54,7 @@ const Search = () => {
 
   useEffect(() => {
     requestSearch();
-  }, [search]);
+  }, [search, page]);
 
   useEffect(() => {
     if (location.state) {
@@ -70,11 +70,10 @@ const Search = () => {
           debounceTimeout={500}
           placeholder="Filme, série, anime, plataforma"
           value={search}
-          onChange={(e) => setSearch(e?.target?.value)}
+          onChange={(event) => setSearch(event.target.value)}
           element={S.Input}
         />
       </S.InputWrapper>
-
       <S.Results>
         {results.map((movie) => (
           <S.MovieCard to={`/media/${movie.id}`} key={movie.id}>
@@ -86,6 +85,13 @@ const Search = () => {
           </S.MovieCard>
         ))}
       </S.Results>
+      <PaginationWrapper
+        defaultCurrent={1}
+        total={totalResults}
+        showSizeChanger={false}
+        defaultPageSize={20}
+        setPage={(page) => setPage(page)}
+      />
     </S.Container>
   );
 };

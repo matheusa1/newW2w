@@ -39,15 +39,22 @@ const SignUp = () => {
     <S.Container>
       <Title text="CADASTRE-SE" />
       <S.Form onSubmit={onHandleClick}>
-        <Input name="name" text="Nome" type="text" />
-        <Input name="email" text="E-mail" type="email" />
+        <Input autoComplete="name" name="name" text="Nome" type="text" />
+        <Input autoComplete="email" name="email" text="E-mail" type="email" />
         <Input
+          autoComplete="email"
+          type="email"
           text="Insira seu e-mail novamente"
           name="emailConfirmation"
-          type="email"
         />
-        <Input type="password" name="password" text="Senha" />
         <Input
+          autoComplete="password"
+          type="password"
+          name="password"
+          text="Senha"
+        />
+        <Input
+          autoComplete="password"
           type="password"
           name="passwordConfirmation"
           text="Insira sua senha novamente"

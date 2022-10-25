@@ -25,8 +25,13 @@ const SignIn = () => {
     <S.Container>
       <Title text="LOGIN" />
       <S.Form onSubmit={onHandleClick}>
-        <Input name="email" type="email" text="E-mail" />
-        <Input name="password" type="password" text="Senha" />
+        <Input name="email" type="email" text="E-mail" autoComplete="email" />
+        <Input
+          name="password"
+          type="password"
+          text="Senha"
+          autoComplete="password"
+        />
         <S.Buttons>
           <Button type="submit" text="Entrar" color="rgba(186, 0, 252, 0.3)" />
           <Button text="Voltar" color="rgba(1, 11, 98, 0.5)" />
