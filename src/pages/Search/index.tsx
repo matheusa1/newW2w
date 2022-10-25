@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import * as S from "./styles";
 import PaginationWrapper from "../../components/Pagination";
 
+import ImageNotFound from "../../assets/image-not-found-scaled.png";
+
 const moviesURL = import.meta.env.VITE_SEARCH;
 const apiKey = import.meta.env.VITE_API_KEY;
 const getImage = import.meta.env.VITE_IMG;
@@ -70,7 +72,7 @@ const Search = () => {
           debounceTimeout={500}
           placeholder="Filme, série, anime, plataforma"
           value={search}
-          onChange={(event) => setSearch(event.target.value)}
+          onChange={(event: any) => setSearch(event.target.value)}
           element={S.Input}
         />
       </S.InputWrapper>
@@ -79,7 +81,11 @@ const Search = () => {
           <S.MovieCard to={`/media/${movie.id}`} key={movie.id}>
             <S.MovieImage
               alt={`${movie.title} poster`}
-              src={`${getImage}${movie.poster_path}`}
+              src={
+                movie?.poster_path === null || movie.poster_path === undefined
+                  ? ImageNotFound
+                  : `${getImage}${movie.poster_path}`
+              }
             />
             <S.MovieTitle>{movie.title}</S.MovieTitle>
           </S.MovieCard>

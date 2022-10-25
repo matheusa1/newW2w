@@ -4,6 +4,7 @@ import Axios from "axios";
 import { useEffect, useState } from "react";
 
 import * as S from "./styles";
+import ImageNotFound from "../../assets/image-not-found-scaled.png";
 
 const moviesURL = import.meta.env.VITE_API;
 const apiKey = import.meta.env.VITE_API_KEY;
@@ -69,6 +70,8 @@ const MediaInfo = () => {
       setMovieInfo(responseMovieInfo?.data);
       setWatchProviders(responseWatchProvider?.data?.results?.PT);
       setSimilarMovies(responseSimilarMovies?.data?.results);
+
+      console.log(responseMovieInfo);
     } catch (error) {
       console.log(error);
     }
@@ -85,7 +88,16 @@ const MediaInfo = () => {
   return (
     <S.Container>
       <S.LeftSide>
-        <S.PosterImage src={`${getImage}${MovieInfo?.poster_path}`} />
+        <S.PosterImage
+          src={
+            MovieInfo?.poster_path === null ||
+            MovieInfo?.poster_path === undefined ||
+            MovieInfo?.poster_path === "" ||
+            MovieInfo?.poster_path === "null"
+              ? ImageNotFound
+              : `${getImage}${MovieInfo?.poster_path}`
+          }
+        />
         <S.RateWrapper>
           <S.Title level={1}>Avaliar</S.Title>
           <StarRatings
@@ -134,7 +146,14 @@ const MediaInfo = () => {
             {SimilarMovies?.map((movie: MovieInfo, index) => (
               <S.SimilarMoviesItem key={index} to={`/media/${movie.id}`}>
                 <S.SimilarMoviesPoster
-                  src={`${getImage}${movie.poster_path}`}
+                  src={
+                    movie?.poster_path === null ||
+                    movie?.poster_path === undefined ||
+                    movie?.poster_path === "" ||
+                    movie?.poster_path === "null"
+                      ? ImageNotFound
+                      : `${getImage}${movie?.poster_path}`
+                  }
                 />
                 <S.SimilarMoviesTitle>{movie.title}</S.SimilarMoviesTitle>
               </S.SimilarMoviesItem>

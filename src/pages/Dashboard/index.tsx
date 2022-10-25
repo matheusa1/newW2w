@@ -40,7 +40,7 @@ const Dashboard = () => {
   const getTopMovies = async () => {
     try {
       const response = await Axios.get(
-        `${moviesURL}top_rated?${apiKey}&language=pt-BR`
+        `${moviesURL}popular?${apiKey}&language=pt-BR`
       );
       setTopMovies(response.data.results);
     } catch (error) {

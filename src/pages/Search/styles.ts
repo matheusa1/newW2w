@@ -57,14 +57,17 @@ export const Results = styled.div`
 
   @media (max-width: 85rem) {
     grid-template-columns: repeat(4, minmax(0, 1fr));
+    padding: 0;
   }
 
   @media (max-width: 69rem) {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+    padding: 0;
   }
 
-  @media (max-width: 40rem) {
+  @media (max-width: 34rem) {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding: 0;
   }
 `;
 
@@ -104,6 +107,8 @@ export const MovieImage = styled.img`
 
   border-radius: 0.5rem;
   overflow: hidden;
+
+  object-fit: cover;
 `;
 
 export const MovieTitle = styled.span`
