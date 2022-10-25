@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import Axios from "axios";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 import Title from "../../components/Title";
 
 import * as S from "./styles";
+import { useNavigate } from "react-router-dom";
 
 const moviesURL = import.meta.env.VITE_API;
 const apiKey = import.meta.env.VITE_API_KEY;
@@ -28,6 +29,7 @@ interface MovieInfo {
 }
 
 const Dashboard = () => {
+  const navigate = useNavigate();
   const windowWidth =
     window.innerWidth ||
     document.documentElement.clientWidth ||
@@ -38,7 +40,7 @@ const Dashboard = () => {
   const getTopMovies = async () => {
     try {
       const response = await Axios.get(
-        `${moviesURL}top_rated?${apiKey}&language=pt-BR`
+        `${moviesURL}popular?${apiKey}&language=pt-BR`
       );
       setTopMovies(response.data.results);
     } catch (error) {
@@ -50,12 +52,27 @@ const Dashboard = () => {
     getTopMovies();
   }, []);
 
+  function onHandleClick(event: FormEvent) {
+    event.preventDefault();
+
+    const formData = new FormData(event.target as HTMLFormElement);
+    const data = Object.fromEntries(formData);
+
+    navigate("/search", { state: data, replace: false });
+  }
+
   return (
     <S.Container>
       <S.Text>O que está procurando?</S.Text>
-      <S.InputWrapper>
-        <S.InputHome placeholder="Filme, série, anime, ..." />
-        <S.InputIcon />
+      <S.InputWrapper onSubmit={onHandleClick}>
+        <S.InputHome
+          type="text"
+          name="search"
+          placeholder="Filme, série, anime, ..."
+        />
+        <S.SubmitIcon type="submit">
+          <S.InputIcon />
+        </S.SubmitIcon>
       </S.InputWrapper>
       <Title px="2.5rem" text="DESTAQUES" />
       <S.CarouselWrapper>
