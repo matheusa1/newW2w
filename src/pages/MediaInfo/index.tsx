@@ -69,10 +69,6 @@ const MediaInfo = () => {
       setMovieInfo(responseMovieInfo?.data);
       setWatchProviders(responseWatchProvider?.data?.results?.PT);
       setSimilarMovies(responseSimilarMovies?.data?.results);
-
-      console.log({ responseMovieInfo });
-      console.log({ responseWatchProvider });
-      console.log(responseSimilarMovies?.data?.results);
     } catch (error) {
       console.log(error);
     }
