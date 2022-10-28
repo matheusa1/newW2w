@@ -12,6 +12,8 @@ export const Container = styled.div`
   align-items: center;
 
   gap: 2rem;
+
+  padding: 2rem;
 `;
 
 export const InputWrapper = styled.div`
@@ -20,11 +22,9 @@ export const InputWrapper = styled.div`
   flex-direction: column;
   align-items: center;
 
-  margin-top: 1.5rem;
-
   gap: 1rem;
 
-  padding: 2rem;
+  padding: 1rem 1rem 2rem;
 `;
 
 export const Text = styled.h1`
@@ -50,7 +50,6 @@ export const Input = styled.input`
 `;
 
 export const Results = styled.div`
-  padding: 0 2rem;
   width: 100%;
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));

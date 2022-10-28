@@ -1,6 +1,6 @@
-import { Pagination } from "antd";
 import type { PaginationProps } from "antd";
 import "antd/lib/pagination/style/index.css";
+import * as S from "./styles";
 
 export interface PaginationWrapper {
   total: number;
@@ -12,14 +12,16 @@ export interface PaginationWrapper {
 
 const PaginationWrapper = (props: PaginationWrapper) => {
   return (
-    <Pagination
+    <S.PaginationS
       defaultCurrent={props.defaultCurrent}
       total={props.total}
       showSizeChanger={props.showSizeChanger}
       defaultPageSize={props.defaultPageSize}
       hideOnSinglePage
-      responsive
+      // responsive
       onChange={props.setPage}
+      showQuickJumper
+      size="small"
     />
   );
 };
