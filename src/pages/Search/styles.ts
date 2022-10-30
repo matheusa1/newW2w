@@ -98,6 +98,13 @@ export const MovieCard = styled(NavLink)`
   @media (max-width: 40rem) {
     width: 12rem;
   }
+
+  transition: all 0.2s;
+
+  &:hover {
+    transform: scale(1.05);
+    opacity: 0.8;
+  }
 `;
 
 export const MovieImage = styled.img`

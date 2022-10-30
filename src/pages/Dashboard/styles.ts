@@ -33,19 +33,18 @@ export const InputWrapper = styled.form`
 `;
 
 export const InputHome = styled.input`
-  width: 100%;
-  padding: 1.5rem;
-  border-radius: 9999px;
-  border: none;
+  outline: none;
+  padding: 1rem;
+  width: 62rem;
+  border-radius: 50px;
 
   color: #000;
+  font-size: 1.2rem;
+  font-weight: 500;
 
-  &::placeholder {
-    color: #000;
+  @media (max-width: 69rem) {
+    width: 100%;
   }
-
-  font-weight: 400;
-  font-size: 1.5rem;
 `;
 
 export const SubmitIcon = styled.button`
