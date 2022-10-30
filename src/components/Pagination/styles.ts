@@ -6,11 +6,9 @@ export const PaginationS = styled(Pagination)`
     background: #fff;
   }
 
-  div {
+  div,
+  svg,
+  span {
     color: ${(props) => props.theme.text};
-  }
-
-  svg {
-    color: white;
   }
 `;
