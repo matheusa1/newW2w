@@ -51,8 +51,8 @@ export const SubmitIcon = styled.button`
   all: unset;
   cursor: pointer;
   position: absolute;
-  right: 1.65rem;
-  top: 1.65rem;
+  right: 2.5rem;
+  top: 1rem;
   width: 1.5rem;
   height: 1.5rem;
 `;
