@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-import { BsStarFill } from "react-icons/bs";
+import { BsStarFill, BsHeart, BsHeartFill } from "react-icons/bs";
 import { NavLink } from "react-router-dom";
 
 export type TitleProps = {
@@ -8,6 +8,10 @@ export type TitleProps = {
   fontWeight?: 700 | 400;
   opacity?: 1 | 0.7;
 };
+
+interface LikedProps {
+  liked: boolean;
+}
 
 export const Container = styled.div`
   display: flex;
@@ -68,6 +72,21 @@ export const RateWrapper = styled.div`
   align-items: center;
   gap: 1rem;
   width: 100%;
+`;
+
+export const LikedWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+`;
+
+export const HearthIcon = styled(BsHeart).attrs<LikedProps>(({ liked }) => ({
+  as: liked ? BsHeartFill : BsHeart,
+}))<LikedProps>`
+  width: 1.5rem;
+  height: 1.5rem;
+
+  color: ${({ liked }) => (liked ? "#ff0000" : "#fff")};
 `;
 
 export const MidSide = styled.div`

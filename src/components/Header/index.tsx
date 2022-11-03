@@ -13,11 +13,6 @@ const Header = ({ themeToggle }: Props) => {
       <S.RightSide>
         <S.Logo to="/">W2w?</S.Logo>
 
-        <S.HeaderItem to="/category">
-          <S.HeaderName>Categoria</S.HeaderName>
-          <S.CategoryIcon />
-        </S.HeaderItem>
-
         <S.HeaderItem to="/search">
           <S.HeaderName>Pesquisa</S.HeaderName>
           <S.SearchIcon />

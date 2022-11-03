@@ -1,7 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "../components/Layout";
 import About from "../pages/About";
-import Category from "../pages/Category";
 import Dashboard from "../pages/Dashboard";
 import MediaInfo from "../pages/MediaInfo";
 import Search from "../pages/Search";
@@ -71,14 +70,6 @@ const AppRoutes = ({ themeToggle }: Prop) => {
             element={
               <Layout themeToggle={themeToggle}>
                 <Settings />
-              </Layout>
-            }
-          />
-          <Route
-            path="/category"
-            element={
-              <Layout themeToggle={themeToggle}>
-                <Category />
               </Layout>
             }
           />

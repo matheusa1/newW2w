@@ -7,7 +7,7 @@ import PaginationWrapper from "../../components/Pagination";
 
 import ImageNotFound from "../../assets/image-not-found-scaled.png";
 
-const moviesURL = import.meta.env.VITE_SEARCH;
+const moviesURL = import.meta.env.VITE_SEARCH_MULTI;
 const apiKey = import.meta.env.VITE_API_KEY;
 const getImage = import.meta.env.VITE_IMG;
 
@@ -49,6 +49,8 @@ const Search = () => {
 
       setResults(response.data.results);
       setTotalResults(response.data.total_results);
+
+      console.log(response.data);
     } catch (error) {
       console.log(error);
     }

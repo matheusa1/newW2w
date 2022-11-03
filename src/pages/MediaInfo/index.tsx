@@ -51,6 +51,7 @@ const MediaInfo = () => {
   const [WatchProviders, setWatchProviders] = useState<classProviderProps>();
   const [Rate, setRate] = useState<number>(0);
   const [SimilarMovies, setSimilarMovies] = useState<MovieInfo[]>([]);
+  const [Liked, setLiked] = useState<boolean>(false);
 
   const params = useParams();
   const { id } = params;
@@ -111,6 +112,10 @@ const MediaInfo = () => {
             starEmptyColor="#9e8600"
           />
         </S.RateWrapper>
+        <S.LikedWrapper>
+          <S.Title level={1}>Gostei</S.Title>
+          <S.HearthIcon liked={Liked} onClick={() => setLiked(!Liked)} />
+        </S.LikedWrapper>
       </S.LeftSide>
       <S.MidSide>
         <S.Titles>
