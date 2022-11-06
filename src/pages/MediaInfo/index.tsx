@@ -319,7 +319,7 @@ const MediaInfo = () => {
           <S.SimilarMoviesList>
             {media === "media"
               ? SimilarMovies?.map((movie, index) => (
-                  <S.SimilarMoviesItem key={index} to={`/media}/${movie.id}`}>
+                  <S.SimilarMoviesItem key={index} to={`/media/${movie.id}`}>
                     <S.SimilarMoviesPoster
                       src={
                         movie?.poster_path === null ||
