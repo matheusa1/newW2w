@@ -178,6 +178,107 @@ export const RateInfo = styled.div`
   font-size: 1rem;
 `;
 
+export const TvInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+export const TvInfoWrapper = styled.div`
+  display: flex;
+  gap: 1rem;
+  margin-left: 1rem;
+`;
+export const TvInfoItem = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+`;
+
+export const TvInfoTitle = styled.span`
+  font-family: Rubik;
+  font-weight: 500;
+  font-size: 1.2rem;
+`;
+export const TvInfoValue = styled.span`
+  font-family: Rubik;
+  font-weight: 500;
+  font-size: 1rem;
+`;
+
+export const SeasonsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
+
+export const SeasonsList = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+
+  @media (max-width: 87.5rem) {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+  }
+`;
+
+export const SeasonsItem = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: wrap;
+
+  gap: 0.5rem;
+
+  width: 15rem;
+
+  border-radius: 0.5rem;
+  overflow: hidden;
+
+  background: ${({ theme }: any) => theme.menuColor};
+
+  padding: 1rem;
+  text-decoration: none;
+
+  @media (max-width: 87.5rem) {
+    overflow: visible;
+  }
+`;
+
+export const SeasonImage = styled.img`
+  width: 10rem;
+`;
+
+export const SeasonInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+export const SeasonName = styled.span`
+  text-decoration: none;
+  font-family: Rubik;
+  font-weight: 400;
+  font-size: 1rem;
+  opacity: 0.8;
+  color: ${({ theme }: any) => theme.text};
+`;
+export const SeasonDate = styled.span`
+  text-decoration: none;
+  font-family: Rubik;
+  font-weight: 400;
+  font-size: 1rem;
+  opacity: 0.8;
+  color: ${({ theme }: any) => theme.text};
+`;
+export const SeasonEpisodes = styled.span`
+  text-decoration: none;
+  font-family: Rubik;
+  font-weight: 400;
+  font-size: 1rem;
+  opacity: 0.8;
+  color: ${({ theme }: any) => theme.text};
+`;
+
 export const SimilarMoviesWrapper = styled.div`
   display: flex;
   flex-direction: column;
