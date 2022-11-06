@@ -120,7 +120,7 @@ export const Title = styled("h1").attrs<TitleProps>(({ level }) => ({
 `;
 
 export const Description = styled.span`
-  font-family: Rubik;
+  font-family: Rubik, Poppins, sans-serif;
   font-weight: 400;
   font-size: 1.2rem;
 `;
@@ -137,7 +137,7 @@ export const GenresList = styled.div`
 `;
 
 export const GenresItem = styled.span`
-  font-family: Rubik;
+  font-family: Rubik, Poppins, sans-serif;
   font-weight: 400;
   font-size: 1rem;
   opacity: 0.8;
@@ -167,13 +167,13 @@ export const NameRateWrapper = styled.div`
 `;
 
 export const Name = styled.div`
-  font-family: Rubik;
+  font-family: Rubik, Poppins, sans-serif;
   font-weight: 400;
   font-size: 1.2rem;
 `;
 
 export const RateInfo = styled.div`
-  font-family: Rubik;
+  font-family: Rubik, Poppins, sans-serif;
   font-weight: 400;
   font-size: 1rem;
 `;
@@ -194,12 +194,12 @@ export const TvInfoItem = styled.div`
 `;
 
 export const TvInfoTitle = styled.span`
-  font-family: Rubik;
+  font-family: Rubik, Poppins, sans-serif;
   font-weight: 500;
   font-size: 1.2rem;
 `;
 export const TvInfoValue = styled.span`
-  font-family: Rubik;
+  font-family: Rubik, Poppins, sans-serif;
   font-weight: 500;
   font-size: 1rem;
 `;
@@ -256,7 +256,7 @@ export const SeasonInfo = styled.div`
 
 export const SeasonName = styled.span`
   text-decoration: none;
-  font-family: Rubik;
+  font-family: Rubik, Poppins, sans-serif;
   font-weight: 400;
   font-size: 1rem;
   opacity: 0.8;
@@ -264,7 +264,7 @@ export const SeasonName = styled.span`
 `;
 export const SeasonDate = styled.span`
   text-decoration: none;
-  font-family: Rubik;
+  font-family: Rubik, Poppins, sans-serif;
   font-weight: 400;
   font-size: 1rem;
   opacity: 0.8;
@@ -272,7 +272,7 @@ export const SeasonDate = styled.span`
 `;
 export const SeasonEpisodes = styled.span`
   text-decoration: none;
-  font-family: Rubik;
+  font-family: Rubik, Poppins, sans-serif;
   font-weight: 400;
   font-size: 1rem;
   opacity: 0.8;
@@ -333,7 +333,7 @@ export const SimilarMoviesPoster = styled.img`
 
 export const SimilarMoviesTitle = styled.span`
   text-decoration: none;
-  font-family: Rubik;
+  font-family: Rubik, Poppins, sans-serif;
   font-weight: 400;
   font-size: 1rem;
   opacity: 0.8;
@@ -388,7 +388,7 @@ export const WhereToWatchClass = styled.div`
   gap: 0.5rem;
 
   > span {
-    font-family: Rubik;
+    font-family: Rubik, Poppins, sans-serif;
     font-weight: 400;
     font-size: 1.2rem;
   }

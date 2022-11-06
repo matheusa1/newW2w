@@ -36,12 +36,13 @@ export const Logo = styled(Link)`
   all: unset;
   font-size: 1.5rem;
   font-weight: 400;
-  font-family: Margarine;
+  font-family: Margarine !important;
 
   cursor: pointer;
 
   &:hover {
     opacity: 0.7;
+    scale: 1.1;
   }
 
   @media (min-width: 34.3rem) {
@@ -187,7 +188,7 @@ export const ProfileInfo = styled.div`
 `;
 
 export const ProfileName = styled.span`
-  font-family: Rubik;
+  font-family: Rubik, Poppins, sans-serif;
   font-size: 1.1rem;
   font-weight: 400;
 `;
@@ -214,7 +215,7 @@ export const MidSide = styled.div`
 
 export const MenuItem = styled(Link)`
   all: unset;
-  font-family: Rubik;
+  font-family: Rubik, Poppins, sans-serif;
   font-size: 1.1rem;
   font-weight: 400;
 
@@ -230,7 +231,7 @@ export const Divider = styled.div`
 
 export const MenuButton = styled.button`
   all: unset;
-  font-family: Rubik;
+  font-family: Rubik, Poppins, sans-serif;
   font-size: 1.1rem;
   font-weight: 400;
 
@@ -241,7 +242,7 @@ export const BottomSide = styled.div``;
 
 export const Close = styled(Dialog.Close)`
   all: unset;
-  font-family: Rubik;
+  font-family: Rubik, Poppins, sans-serif;
   font-size: 1.1rem;
   font-weight: 400;
 
@@ -260,7 +261,7 @@ export const NotLogged = styled.div`
 export const Login = styled(Link)`
   all: unset;
 
-  font-family: Rubik;
+  font-family: Rubik, Poppins, sans-serif;
   font-size: 1.1rem;
   font-weight: 400;
   cursor: pointer;
@@ -269,7 +270,7 @@ export const Login = styled(Link)`
 export const CreateAccount = styled(Link)`
   all: unset;
 
-  font-family: Rubik;
+  font-family: Rubik, Poppins, sans-serif;
   font-size: 1.1rem;
   font-weight: 400;
   color: #0085ff;
