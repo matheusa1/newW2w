@@ -19,7 +19,7 @@ export const Input = styled.input`
   border-radius: 50px;
 
   color: ${(props) => props?.theme?.text};
-  font-family: Poppins;
+  font-family: Poppins, Rubik, sans-serif;
   font-weight: 700;
   font-size: 1.5rem;
 

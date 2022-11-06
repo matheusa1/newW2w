@@ -29,7 +29,7 @@ export const Content = styled.div`
 export const ContentText = styled.p`
   font-size: 1.5rem;
   color: #fff;
-  font-family: Rubik;
+  font-family: Rubik, Poppins, sans-serif;
 
   @media (max-width: 34.3rem) {
     font-size: 1rem;

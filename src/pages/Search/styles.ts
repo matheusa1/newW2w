@@ -33,7 +33,7 @@ export const Button = styled.button<Buttons>`
 
   color: #fff;
   font-size: 1rem;
-  font-family: Poppins;
+  font-family: Poppins, Rubik, sans-serif;
 
   border: none;
   cursor: pointer;
