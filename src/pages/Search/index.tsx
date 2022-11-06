@@ -7,9 +7,10 @@ import PaginationWrapper from "../../components/Pagination";
 
 import ImageNotFound from "../../assets/image-not-found-scaled.png";
 
-const moviesURL = import.meta.env.VITE_SEARCH_MULTI;
+const moviesURL = import.meta.env.VITE_SEARCH;
 const apiKey = import.meta.env.VITE_API_KEY;
 const getImage = import.meta.env.VITE_IMG;
+const TvURL = import.meta.env.VITE_SEARCH_TV;
 
 interface MovieInfo {
   adult: boolean;
@@ -28,29 +29,62 @@ interface MovieInfo {
   vote_count: number;
 }
 
+interface TvInfo {
+  backdrop_path: string;
+  first_air_date: string;
+  genre_ids: number[];
+  id: number;
+  name: string;
+  origin_country: string[];
+  original_language: string;
+  original_name: string;
+  overview: string;
+  popularity: number;
+  poster_path: string;
+  vote_average: number;
+  vote_count: number;
+}
+
 const Search = () => {
+  const [buttonSelect, setButtonSelect] = useState(1);
+
   const [search, setSearch] = useState("");
   const [results, setResults] = useState<MovieInfo[]>([]);
+  const [resultsTv, setResultsTv] = useState<TvInfo[]>([]);
   const [totalResults, setTotalResults] = useState(0);
   const [page, setPage] = useState(1);
   const location = useLocation();
 
   const requestSearch = async () => {
     try {
-      let response;
+      if (buttonSelect === 1) {
+        let response;
+        search === "" || search === undefined
+          ? (response = await Axios.get(
+              `${moviesURL}?${apiKey}&language=pt-BR&query=a&page=${page}`
+            ))
+          : (response = await Axios.get(
+              `${moviesURL}?${apiKey}&language=pt-BR&query=${search}&page=${page}`
+            ));
 
-      search === "" || search === undefined
-        ? (response = await Axios.get(
-            `${moviesURL}?${apiKey}&language=pt-BR&query=a&page=${page}`
-          ))
-        : (response = await Axios.get(
-            `${moviesURL}?${apiKey}&language=pt-BR&query=${search}&page=${page}`
-          ));
+        setResults(response.data.results);
+        setTotalResults(response.data.total_results);
+        console.log(response.data);
+      }
+      if (buttonSelect === 2) {
+        let response;
+        search === "" || search === undefined
+          ? (response = await Axios.get(
+              `${TvURL}?${apiKey}&language=pt-BR&query=a&page=${page}`
+            ))
+          : (response = await Axios.get(
+              `${TvURL}?${apiKey}&language=pt-BR&query=${search}&page=${page}`
+            ));
 
-      setResults(response.data.results);
-      setTotalResults(response.data.total_results);
-
-      console.log(response.data);
+        setResultsTv(response.data.results);
+        setTotalResults(response.data.total_results);
+        console.log(response.data);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -58,7 +92,7 @@ const Search = () => {
 
   useEffect(() => {
     requestSearch();
-  }, [search, page]);
+  }, [search, page, buttonSelect]);
 
   useEffect(() => {
     if (location.state) {
@@ -68,6 +102,20 @@ const Search = () => {
 
   return (
     <S.Container>
+      <S.Buttons>
+        <S.Button
+          onClick={() => setButtonSelect(1)}
+          active={buttonSelect === 1 ? true : false}
+        >
+          Filmes
+        </S.Button>
+        <S.Button
+          onClick={() => setButtonSelect(2)}
+          active={buttonSelect === 2 ? true : false}
+        >
+          Séries
+        </S.Button>
+      </S.Buttons>
       <S.InputWrapper>
         <S.Text>O que está procurando?</S.Text>
         <S.Debounce
@@ -79,19 +127,34 @@ const Search = () => {
         />
       </S.InputWrapper>
       <S.Results>
-        {results.map((movie) => (
-          <S.MovieCard to={`/media/${movie.id}`} key={movie.id}>
-            <S.MovieImage
-              alt={`${movie.title} poster`}
-              src={
-                movie?.poster_path === null || movie.poster_path === undefined
-                  ? ImageNotFound
-                  : `${getImage}${movie.poster_path}`
-              }
-            />
-            <S.MovieTitle>{movie.title}</S.MovieTitle>
-          </S.MovieCard>
-        ))}
+        {buttonSelect === 1
+          ? results.map((movie) => (
+              <S.MovieCard to={`/media/${movie.id}`} key={movie.id}>
+                <S.MovieImage
+                  alt={`${movie.title} poster`}
+                  src={
+                    movie?.poster_path === null ||
+                    movie.poster_path === undefined
+                      ? ImageNotFound
+                      : `${getImage}${movie.poster_path}`
+                  }
+                />
+                <S.MovieTitle>{movie.title}</S.MovieTitle>
+              </S.MovieCard>
+            ))
+          : resultsTv.map((tv) => (
+              <S.MovieCard to={`/tv/${tv.id}`} key={tv.id}>
+                <S.MovieImage
+                  alt={`${tv.name} poster`}
+                  src={
+                    tv?.poster_path === null || tv.poster_path === undefined
+                      ? ImageNotFound
+                      : `${getImage}${tv.poster_path}`
+                  }
+                />
+                <S.MovieTitle>{tv.name}</S.MovieTitle>
+              </S.MovieCard>
+            ))}
       </S.Results>
       <PaginationWrapper
         defaultCurrent={1}

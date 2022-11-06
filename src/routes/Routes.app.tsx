@@ -58,7 +58,7 @@ const AppRoutes = ({ themeToggle }: Prop) => {
             }
           />
           <Route
-            path="/media/:id"
+            path="/:media/:id"
             element={
               <Layout themeToggle={themeToggle}>
                 <MediaInfo />

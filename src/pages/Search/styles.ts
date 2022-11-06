@@ -3,6 +3,10 @@ import styled from "styled-components";
 import { DebounceInput } from "react-debounce-input";
 import { NavLink } from "react-router-dom";
 
+interface Buttons {
+  active: boolean;
+}
+
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -14,6 +18,31 @@ export const Container = styled.div`
   gap: 2rem;
 
   padding: 2rem;
+`;
+
+export const Buttons = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+`;
+export const Button = styled.button<Buttons>`
+  padding: 1rem;
+  width: 20rem;
+  border-radius: 50px;
+  background: #2d4174;
+
+  color: #fff;
+  font-size: 1rem;
+  font-family: Poppins;
+
+  border: none;
+  cursor: pointer;
+
+  border: ${(props) => (props.active ? "2px solid #66D6EF" : "none")};
+
+  :hover {
+    background: #1a2a4a;
+  }
 `;
 
 export const InputWrapper = styled.div`

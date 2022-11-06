@@ -9,10 +9,36 @@ import ImageNotFound from "../../assets/image-not-found-scaled.png";
 const moviesURL = import.meta.env.VITE_API;
 const apiKey = import.meta.env.VITE_API_KEY;
 const getImage = import.meta.env.VITE_IMG;
+const TvURL = import.meta.env.VITE_TV;
 
 interface GenresInfoProps {
   id: number;
   name: string;
+}
+
+interface EpisodeInfoProps {
+  air_date: string;
+  episode_number: number;
+  id: number;
+  name: string;
+  overview: string;
+  production_code: string;
+  runtime: number;
+  season_number: number;
+  show_id: number;
+  still_path: string;
+  vote_average: number;
+  vote_count: number;
+}
+
+interface SeasonInfoProps {
+  air_date: string;
+  episode_count: number;
+  id: number;
+  name: string;
+  overview: string;
+  poster_path: string;
+  season_number: number;
 }
 
 interface MovieInfo {
@@ -28,6 +54,35 @@ interface MovieInfo {
   release_date: string;
   title: string;
   video: boolean;
+  vote_average: number;
+  vote_count: number;
+}
+
+interface TvInfo {
+  adult: boolean;
+  backdrop_path: string;
+  episode_run_time: number[];
+  first_air_date: string;
+  genres: GenresInfoProps[];
+  homepage: string;
+  id: number;
+  in_production: boolean;
+  languages: string[];
+  last_air_date: string;
+  last_episode_to_air: EpisodeInfoProps;
+  name: string;
+  next_episode_to_air?: number;
+  number_of_episodes: number;
+  number_of_seasons: number;
+  original_language: string;
+  original_name: string;
+  overview: string;
+  popularity: number;
+  poster_path: string;
+  seasons: SeasonInfoProps[];
+  status: string;
+  tagline: string;
+  type: string;
   vote_average: number;
   vote_count: number;
 }
@@ -48,31 +103,56 @@ interface classProviderProps {
 
 const MediaInfo = () => {
   const [MovieInfo, setMovieInfo] = useState<MovieInfo>();
+  const [TvInfo, setTvInfo] = useState<TvInfo>();
   const [WatchProviders, setWatchProviders] = useState<classProviderProps>();
   const [Rate, setRate] = useState<number>(0);
   const [SimilarMovies, setSimilarMovies] = useState<MovieInfo[]>([]);
+  const [SimilarTv, setSimilarTv] = useState<TvInfo[]>([]);
   const [Liked, setLiked] = useState<boolean>(false);
 
   const params = useParams();
   const { id } = params;
+  const { media } = params;
 
   const getMovieInfo = async () => {
     try {
-      const responseMovieInfo = await Axios.get(
-        `${moviesURL}${id}?${apiKey}&language=pt-BR`
-      );
-      const responseWatchProvider = await Axios.get(
-        `${moviesURL}${id}/watch/providers?${apiKey}&language=pt-BR`
-      );
-      const responseSimilarMovies = await Axios.get(
-        `${moviesURL}${id}/similar?${apiKey}&language=pt-BR`
-      );
+      let response;
+      let responseWatchProvider;
+      let responseSimilarMovies;
 
-      setMovieInfo(responseMovieInfo?.data);
-      setWatchProviders(responseWatchProvider?.data?.results?.PT);
-      setSimilarMovies(responseSimilarMovies?.data?.results);
+      if (media === "media") {
+        response = await Axios.get(
+          `${moviesURL}${id}?${apiKey}&language=pt-BR`
+        );
+        responseWatchProvider = await Axios.get(
+          `${moviesURL}${id}/watch/providers?${apiKey}&language=pt-BR`
+        );
+        responseSimilarMovies = await Axios.get(
+          `${moviesURL}${id}/similar?${apiKey}&language=pt-BR`
+        );
 
-      console.log(responseMovieInfo);
+        setMovieInfo(response.data);
+        setWatchProviders(responseWatchProvider.data.results.BR);
+        setSimilarMovies(responseSimilarMovies.data.results);
+
+        console.log(responseWatchProvider.data.results.BR);
+        console.log(response.data);
+      } else {
+        response = await Axios.get(`${TvURL}${id}?${apiKey}&language=pt-BR`);
+        responseWatchProvider = await Axios.get(
+          `${TvURL}${id}/watch/providers?${apiKey}&language=pt-BR`
+        );
+        responseSimilarMovies = await Axios.get(
+          `${TvURL}${id}/similar?${apiKey}&language=pt-BR`
+        );
+
+        setTvInfo(response.data);
+        setWatchProviders(responseWatchProvider.data.results.BR);
+        setSimilarTv(responseSimilarMovies.data.results);
+
+        console.log(responseWatchProvider.data.results.BR);
+        console.log(response.data);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -91,12 +171,19 @@ const MediaInfo = () => {
       <S.LeftSide>
         <S.PosterImage
           src={
-            MovieInfo?.poster_path === null ||
-            MovieInfo?.poster_path === undefined ||
-            MovieInfo?.poster_path === "" ||
-            MovieInfo?.poster_path === "null"
+            media === "media"
+              ? MovieInfo?.poster_path === null ||
+                MovieInfo?.poster_path === undefined ||
+                MovieInfo?.poster_path === "" ||
+                MovieInfo?.poster_path === "null"
+                ? ImageNotFound
+                : `${getImage}${MovieInfo?.poster_path}`
+              : TvInfo?.poster_path === null ||
+                TvInfo?.poster_path === undefined ||
+                TvInfo?.poster_path === "" ||
+                TvInfo?.poster_path === "null"
               ? ImageNotFound
-              : `${getImage}${MovieInfo?.poster_path}`
+              : `${getImage}${TvInfo?.poster_path}`
           }
         />
         <S.RateWrapper>
@@ -119,20 +206,35 @@ const MediaInfo = () => {
       </S.LeftSide>
       <S.MidSide>
         <S.Titles>
-          <S.Title
-            level={1}
-          >{`${MovieInfo?.title}, ${MovieInfo?.release_date}`}</S.Title>
+          <S.Title level={1}>{`${
+            media === "media" ? MovieInfo?.title : TvInfo?.name
+          }, ${
+            media === "media"
+              ? MovieInfo?.release_date.replace("-", "/")
+              : `${TvInfo?.first_air_date.replace(
+                  /-/g,
+                  "/"
+                )} ~ ${TvInfo?.last_air_date.replace(/-/g, "/")}`
+          }`}</S.Title>
           <S.Title level={5} opacity={0.7}>
-            {MovieInfo?.original_title}
+            {media === "media"
+              ? MovieInfo?.original_title
+              : TvInfo?.original_name}
           </S.Title>
         </S.Titles>
-        <S.Description>{MovieInfo?.overview}</S.Description>
+        <S.Description>
+          {media === "media" ? MovieInfo?.overview : TvInfo?.overview}
+        </S.Description>
         <S.GenresWrapper>
           <S.Title level={2}>Gêneros</S.Title>
           <S.GenresList>
-            {MovieInfo?.genres?.map((genre: GenresInfoProps, index) => (
-              <S.GenresItem key={index}>{genre.name}</S.GenresItem>
-            ))}
+            {media === "media"
+              ? MovieInfo?.genres?.map((genre: GenresInfoProps, index) => (
+                  <S.GenresItem key={index}>{genre.name}</S.GenresItem>
+                ))
+              : TvInfo?.genres?.map((genre: GenresInfoProps, index) => (
+                  <S.GenresItem key={index}>{genre.name}</S.GenresItem>
+                ))}
           </S.GenresList>
         </S.GenresWrapper>
         <S.RatesWrapper>
@@ -141,28 +243,111 @@ const MediaInfo = () => {
             <S.StarFullFillIcon />
             <S.NameRateWrapper>
               <S.Name>IMDb</S.Name>
-              <S.RateInfo>{MovieInfo?.vote_average}</S.RateInfo>
+              <S.RateInfo>
+                {media === "media"
+                  ? MovieInfo?.vote_average
+                  : TvInfo?.vote_average}
+              </S.RateInfo>
             </S.NameRateWrapper>
           </S.IMDbRate>
         </S.RatesWrapper>
+        {media === "tv" && (
+          <>
+            <S.TvInfo>
+              <S.Title level={3}>Informações</S.Title>
+              <S.TvInfoWrapper>
+                <S.TvInfoItem>
+                  <S.TvInfoTitle>Temporadas</S.TvInfoTitle>
+                  <S.TvInfoValue>{TvInfo?.number_of_seasons}</S.TvInfoValue>
+                </S.TvInfoItem>
+                <S.TvInfoItem>
+                  <S.TvInfoTitle>Episódios</S.TvInfoTitle>
+                  <S.TvInfoValue>{TvInfo?.number_of_episodes}</S.TvInfoValue>
+                </S.TvInfoItem>
+                <S.TvInfoItem>
+                  <S.TvInfoTitle>Duração média dos episódios</S.TvInfoTitle>
+                  <S.TvInfoValue>
+                    {TvInfo?.episode_run_time?.map((item, index) => {
+                      return `${item}${
+                        index === 0 && TvInfo.episode_run_time.length > 1
+                          ? ":"
+                          : ""
+                      }`;
+                    })}{" "}
+                    min
+                  </S.TvInfoValue>
+                </S.TvInfoItem>
+              </S.TvInfoWrapper>
+            </S.TvInfo>
+
+            <S.SeasonsWrapper>
+              <S.Title level={3}>Temporadas</S.Title>
+              <S.SeasonsList>
+                {TvInfo?.seasons?.map((season, index) => (
+                  <S.SeasonsItem key={index}>
+                    <S.SeasonImage
+                      src={
+                        season.poster_path === null ||
+                        season.poster_path === undefined ||
+                        season.poster_path === "" ||
+                        season.poster_path === "null"
+                          ? ImageNotFound
+                          : `${getImage}${season.poster_path}`
+                      }
+                    />
+                    <S.SeasonInfo>
+                      <S.SeasonName>{season.name}</S.SeasonName>
+                      <S.SeasonDate>
+                        {season.air_date
+                          ? season?.air_date?.replace(/-/g, "/")
+                          : ""}
+                      </S.SeasonDate>
+                      <S.SeasonEpisodes>
+                        {season.episode_count} episódios
+                      </S.SeasonEpisodes>
+                    </S.SeasonInfo>
+                  </S.SeasonsItem>
+                ))}
+              </S.SeasonsList>
+            </S.SeasonsWrapper>
+          </>
+        )}
         <S.SimilarMoviesWrapper>
-          <S.Title level={3}>Filmes Similares</S.Title>
+          <S.Title level={3}>
+            {media === "media" ? "Filmes" : "Séries"} Similares
+          </S.Title>
           <S.SimilarMoviesList>
-            {SimilarMovies?.map((movie: MovieInfo, index) => (
-              <S.SimilarMoviesItem key={index} to={`/media/${movie.id}`}>
-                <S.SimilarMoviesPoster
-                  src={
-                    movie?.poster_path === null ||
-                    movie?.poster_path === undefined ||
-                    movie?.poster_path === "" ||
-                    movie?.poster_path === "null"
-                      ? ImageNotFound
-                      : `${getImage}${movie?.poster_path}`
-                  }
-                />
-                <S.SimilarMoviesTitle>{movie.title}</S.SimilarMoviesTitle>
-              </S.SimilarMoviesItem>
-            ))}
+            {media === "media"
+              ? SimilarMovies?.map((movie, index) => (
+                  <S.SimilarMoviesItem key={index} to={`/media}/${movie.id}`}>
+                    <S.SimilarMoviesPoster
+                      src={
+                        movie?.poster_path === null ||
+                        movie?.poster_path === undefined ||
+                        movie?.poster_path === "" ||
+                        movie?.poster_path === "null"
+                          ? ImageNotFound
+                          : `${getImage}${movie?.poster_path}`
+                      }
+                    />
+                    <S.SimilarMoviesTitle>{movie.title}</S.SimilarMoviesTitle>
+                  </S.SimilarMoviesItem>
+                ))
+              : SimilarTv?.map((tv, index) => (
+                  <S.SimilarMoviesItem key={index} to={`/tv/${tv.id}`}>
+                    <S.SimilarMoviesPoster
+                      src={
+                        tv?.poster_path === null ||
+                        tv?.poster_path === undefined ||
+                        tv?.poster_path === "" ||
+                        tv?.poster_path === "null"
+                          ? ImageNotFound
+                          : `${getImage}${tv?.poster_path}`
+                      }
+                    />
+                    <S.SimilarMoviesTitle>{tv.name}</S.SimilarMoviesTitle>
+                  </S.SimilarMoviesItem>
+                ))}
           </S.SimilarMoviesList>
         </S.SimilarMoviesWrapper>
       </S.MidSide>
