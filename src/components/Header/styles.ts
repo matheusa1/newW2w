@@ -124,6 +124,8 @@ export const Content = styled(Dialog.Content)`
   background: ${({ theme }: any) => theme.menuColor};
   color: ${({ theme }: any) => theme.text};
 
+  z-index: 2;
+
   position: fixed;
   top: 0;
   right: 0;
