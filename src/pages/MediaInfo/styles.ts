@@ -3,6 +3,8 @@ import styled, { css } from "styled-components";
 import { BsStarFill, BsHeart, BsHeartFill } from "react-icons/bs";
 import { NavLink } from "react-router-dom";
 
+import ReactLoading from "react-loading";
+
 export type TitleProps = {
   level: 1 | 2 | 3 | 4 | 5 | 6;
   fontWeight?: 700 | 400;
@@ -417,4 +419,18 @@ export const IsAdult = styled.div`
   width: 100%;
 
   align-items: center;
+`;
+
+export const LoadingContainer = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
+
+export const ReactLoadings = styled(ReactLoading)``;
+
+export const Label = styled.span`
+  font-family: Rubik, Poppins, sans-serif;
+  font-weight: 400;
 `;
