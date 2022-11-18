@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 import { DebounceInput } from "react-debounce-input";
 import { NavLink } from "react-router-dom";
+import ReactLoading from "react-loading";
 
 interface Buttons {
   active: boolean;
@@ -150,3 +151,17 @@ export const MovieTitle = styled.span`
   font-size: 1rem;
   color: ${({ theme }) => theme.text};
 `;
+
+export const LoadingContainer = styled.div`
+  grid-column: 1 / -1;
+  width: 100%;
+  height: 100%;
+`;
+
+export const LoadingWrapper = styled.div`
+  width: 10%;
+  margin: 0 auto;
+`;
+
+export const LoadingComponent = styled(ReactLoading)``;
+export const LoadingLabel = styled.div``;

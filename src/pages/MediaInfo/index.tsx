@@ -108,7 +108,6 @@ const MediaInfo = () => {
   const [Rate, setRate] = useState<number>(0);
   const [SimilarMovies, setSimilarMovies] = useState<MovieInfo[]>([]);
   const [SimilarTv, setSimilarTv] = useState<TvInfo[]>([]);
-  const [Liked, setLiked] = useState<boolean>(false);
 
   const params = useParams();
   const { id } = params;
@@ -134,9 +133,6 @@ const MediaInfo = () => {
         setMovieInfo(response.data);
         setWatchProviders(responseWatchProvider.data.results.BR);
         setSimilarMovies(responseSimilarMovies.data.results);
-
-        console.log(responseWatchProvider.data.results.BR);
-        console.log(response.data);
       } else {
         response = await Axios.get(`${TvURL}${id}?${apiKey}&language=pt-BR`);
         responseWatchProvider = await Axios.get(
@@ -149,9 +145,6 @@ const MediaInfo = () => {
         setTvInfo(response.data);
         setWatchProviders(responseWatchProvider.data.results.BR);
         setSimilarTv(responseSimilarMovies.data.results);
-
-        console.log(responseWatchProvider.data.results.BR);
-        console.log(response.data);
       }
     } catch (error) {
       console.log(error);
@@ -201,10 +194,6 @@ const MediaInfo = () => {
                 starEmptyColor="#9e8600"
               />
             </S.RateWrapper>
-            <S.LikedWrapper>
-              <S.Title level={1}>Gostei</S.Title>
-              <S.HearthIcon liked={Liked} onClick={() => setLiked(!Liked)} />
-            </S.LikedWrapper>
           </S.LeftSide>
           <S.MidSide>
             <S.Titles>

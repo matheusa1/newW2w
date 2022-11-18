@@ -74,31 +74,47 @@ const Dashboard = () => {
           <S.InputIcon />
         </S.SubmitIcon>
       </S.InputWrapper>
-      <Title px="2.5rem" text="DESTAQUES" />
-      <S.CarouselWrapper>
-        <S.CarouselRoot
-          centerMode
-          centerSlidePercentage={100}
-          dynamicHeight
-          autoPlay
-          infiniteLoop
-          stopOnHover
-          showThumbs={false}
-          showStatus={false}
-          showArrows={true}
-        >
-          {topMovies.map((movie: MovieInfo, index) => (
-            <S.CarouselItem to={`/media/${movie.id}`} key={index}>
-              <img
-                src={`${getImage}${
-                  windowWidth > 550 ? movie?.backdrop_path : movie?.poster_path
-                }`}
-              />
-              <S.CarouselText>{movie?.title}</S.CarouselText>
-            </S.CarouselItem>
-          ))}
-        </S.CarouselRoot>
-      </S.CarouselWrapper>
+      {topMovies.length > 0 ? (
+        <>
+          <Title px="2.5rem" text="DESTAQUES" />
+          <S.CarouselWrapper>
+            <S.CarouselRoot
+              centerMode
+              centerSlidePercentage={100}
+              dynamicHeight
+              autoPlay
+              infiniteLoop
+              stopOnHover
+              showThumbs={false}
+              showStatus={false}
+              showArrows={true}
+            >
+              {topMovies.map((movie: MovieInfo, index) => (
+                <S.CarouselItem to={`/media/${movie.id}`} key={index}>
+                  <img
+                    src={`${getImage}${
+                      windowWidth > 550
+                        ? movie?.backdrop_path
+                        : movie?.poster_path
+                    }`}
+                  />
+                  <S.CarouselText>{movie?.title}</S.CarouselText>
+                </S.CarouselItem>
+              ))}
+            </S.CarouselRoot>
+          </S.CarouselWrapper>
+        </>
+      ) : (
+        <S.LoadingContainer>
+          <S.LoadingComponent
+            type={"bubbles"}
+            color={"#FFFFFF"}
+            height={"100%"}
+            width={"100%"}
+          />
+          <S.LoadingLabel>Carregando...</S.LoadingLabel>
+        </S.LoadingContainer>
+      )}
     </S.Container>
   );
 };

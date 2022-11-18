@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { BsSearch } from "react-icons/bs";
 import { NavLink } from "react-router-dom";
 import { Carousel } from "react-responsive-carousel";
+import ReactLoading from 'react-loading';
 
 interface CarouselProps {
   active: boolean;
@@ -108,3 +109,7 @@ export const CarouselText = styled.span`
   left: 50%;
   transform: translateX(-50%);
 `;
+
+export const LoadingContainer = styled.div``;
+export const LoadingComponent = styled(ReactLoading)``;
+export const LoadingLabel = styled.div``;

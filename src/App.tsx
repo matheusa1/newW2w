@@ -3,6 +3,7 @@ import { ThemeProvider } from "styled-components";
 import { lightTheme, darkTheme } from "./styles/Themes";
 import { useState } from "react";
 import AppRoutes from "./routes/Routes.app";
+import Layout from "./components/Layout";
 
 function App() {
   const [theme, setTheme] = useState("dark");
