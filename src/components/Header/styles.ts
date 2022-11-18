@@ -156,54 +156,6 @@ export const TopSide = styled.div`
   justify-content: center;
 `;
 
-export const ProfileData = styled.div`
-  display: flex;
-  align-items: center;
-
-  gap: 1.25rem;
-`;
-
-export const Avatar = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  background: #c4c4c4;
-
-  border-radius: 9999px;
-
-  padding: 0.6rem;
-`;
-
-export const AvatarIcon = styled(FaUserTie)`
-  width: 2.5rem;
-  height: 2.5rem;
-
-  fill: #343434;
-`;
-
-export const ProfileInfo = styled.div`
-  display: flex;
-  flex-direction: column;
-
-  gap: 0.2rem;
-`;
-
-export const ProfileName = styled.span`
-  font-family: Rubik, Poppins, sans-serif;
-  font-size: 1.1rem;
-  font-weight: 400;
-`;
-
-export const ProfileEdit = styled(Link)`
-  all: unset;
-  font-weight: 400;
-  font-size: 1rem;
-  color: #0085ff;
-
-  cursor: pointer;
-`;
-
 export const MidSide = styled.div`
   display: flex;
   flex-direction: column;
@@ -216,6 +168,15 @@ export const MidSide = styled.div`
 `;
 
 export const MenuItem = styled(Link)`
+  all: unset;
+  font-family: Rubik, Poppins, sans-serif;
+  font-size: 1.1rem;
+  font-weight: 400;
+
+  cursor: pointer;
+`;
+
+export const MenuItemOutside = styled.a`
   all: unset;
   font-family: Rubik, Poppins, sans-serif;
   font-size: 1.1rem;

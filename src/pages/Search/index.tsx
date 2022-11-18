@@ -69,7 +69,6 @@ const Search = () => {
 
         setResults(response.data.results);
         setTotalResults(response.data.total_results);
-        console.log(response.data);
       }
       if (buttonSelect === 2) {
         let response;
@@ -83,7 +82,6 @@ const Search = () => {
 
         setResultsTv(response.data.results);
         setTotalResults(response.data.total_results);
-        console.log(response.data);
       }
     } catch (error) {
       console.log(error);
@@ -91,7 +89,10 @@ const Search = () => {
   };
 
   useEffect(() => {
+    setResults([]);
+    setResultsTv([]);
     requestSearch();
+    window.scrollTo(0, 0);
   }, [search, page, buttonSelect]);
 
   useEffect(() => {
@@ -127,8 +128,9 @@ const Search = () => {
         />
       </S.InputWrapper>
       <S.Results>
-        {buttonSelect === 1
-          ? results.map((movie) => (
+        {buttonSelect === 1 ? (
+          results ? (
+            results.map((movie) => (
               <S.MovieCard to={`/media/${movie.id}`} key={movie.id}>
                 <S.MovieImage
                   alt={`${movie.title} poster`}
@@ -142,27 +144,56 @@ const Search = () => {
                 <S.MovieTitle>{movie.title}</S.MovieTitle>
               </S.MovieCard>
             ))
-          : resultsTv.map((tv) => (
-              <S.MovieCard to={`/tv/${tv.id}`} key={tv.id}>
-                <S.MovieImage
-                  alt={`${tv.name} poster`}
-                  src={
-                    tv?.poster_path === null || tv.poster_path === undefined
-                      ? ImageNotFound
-                      : `${getImage}${tv.poster_path}`
-                  }
+          ) : (
+            <S.LoadingContainer>
+              <S.LoadingWrapper>
+                <S.LoadingComponent
+                  type={"bubbles"}
+                  color={"#FFFFFF"}
+                  height={"100%"}
+                  width={"100%"}
                 />
-                <S.MovieTitle>{tv.name}</S.MovieTitle>
-              </S.MovieCard>
-            ))}
+                <S.LoadingLabel>Carregando...</S.LoadingLabel>
+              </S.LoadingWrapper>
+            </S.LoadingContainer>
+          )
+        ) : resultsTv ? (
+          resultsTv.map((tv) => (
+            <S.MovieCard to={`/tv/${tv.id}`} key={tv.id}>
+              <S.MovieImage
+                alt={`${tv.name} poster`}
+                src={
+                  tv?.poster_path === null || tv.poster_path === undefined
+                    ? ImageNotFound
+                    : `${getImage}${tv.poster_path}`
+                }
+              />
+              <S.MovieTitle>{tv.name}</S.MovieTitle>
+            </S.MovieCard>
+          ))
+        ) : (
+          <S.LoadingContainer>
+            <S.LoadingWrapper>
+              <S.LoadingComponent
+                type={"bubbles"}
+                color={"#FFFFFF"}
+                height={"100%"}
+                width={"100%"}
+              />
+              <S.LoadingLabel>Carregando...</S.LoadingLabel>
+            </S.LoadingWrapper>
+          </S.LoadingContainer>
+        )}
       </S.Results>
-      <PaginationWrapper
-        defaultCurrent={1}
-        total={totalResults}
-        showSizeChanger={false}
-        defaultPageSize={20}
-        setPage={(page) => setPage(page)}
-      />
+      {(results || resultsTv) && (
+        <PaginationWrapper
+          defaultCurrent={1}
+          total={totalResults}
+          showSizeChanger={false}
+          defaultPageSize={20}
+          setPage={(page) => setPage(page)}
+        />
+      )}
     </S.Container>
   );
 };

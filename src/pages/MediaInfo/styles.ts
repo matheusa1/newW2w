@@ -3,6 +3,8 @@ import styled, { css } from "styled-components";
 import { BsStarFill, BsHeart, BsHeartFill } from "react-icons/bs";
 import { NavLink } from "react-router-dom";
 
+import ReactLoading from "react-loading";
+
 export type TitleProps = {
   level: 1 | 2 | 3 | 4 | 5 | 6;
   fontWeight?: 700 | 400;
@@ -72,21 +74,6 @@ export const RateWrapper = styled.div`
   align-items: center;
   gap: 1rem;
   width: 100%;
-`;
-
-export const LikedWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-`;
-
-export const HearthIcon = styled(BsHeart).attrs<LikedProps>(({ liked }) => ({
-  as: liked ? BsHeartFill : BsHeart,
-}))<LikedProps>`
-  width: 1.5rem;
-  height: 1.5rem;
-
-  color: ${({ liked }) => (liked ? "#ff0000" : "#fff")};
 `;
 
 export const MidSide = styled.div`
@@ -417,4 +404,18 @@ export const IsAdult = styled.div`
   width: 100%;
 
   align-items: center;
+`;
+
+export const LoadingContainer = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
+
+export const ReactLoadings = styled(ReactLoading)``;
+
+export const Label = styled.span`
+  font-family: Rubik, Poppins, sans-serif;
+  font-weight: 400;
 `;

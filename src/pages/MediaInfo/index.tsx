@@ -108,7 +108,6 @@ const MediaInfo = () => {
   const [Rate, setRate] = useState<number>(0);
   const [SimilarMovies, setSimilarMovies] = useState<MovieInfo[]>([]);
   const [SimilarTv, setSimilarTv] = useState<TvInfo[]>([]);
-  const [Liked, setLiked] = useState<boolean>(false);
 
   const params = useParams();
   const { id } = params;
@@ -134,9 +133,6 @@ const MediaInfo = () => {
         setMovieInfo(response.data);
         setWatchProviders(responseWatchProvider.data.results.BR);
         setSimilarMovies(responseSimilarMovies.data.results);
-
-        console.log(responseWatchProvider.data.results.BR);
-        console.log(response.data);
       } else {
         response = await Axios.get(`${TvURL}${id}?${apiKey}&language=pt-BR`);
         responseWatchProvider = await Axios.get(
@@ -149,9 +145,6 @@ const MediaInfo = () => {
         setTvInfo(response.data);
         setWatchProviders(responseWatchProvider.data.results.BR);
         setSimilarTv(responseSimilarMovies.data.results);
-
-        console.log(responseWatchProvider.data.results.BR);
-        console.log(response.data);
       }
     } catch (error) {
       console.log(error);
@@ -168,255 +161,272 @@ const MediaInfo = () => {
 
   return (
     <S.Container>
-      <S.LeftSide>
-        <S.PosterImage
-          src={
-            media === "media"
-              ? MovieInfo?.poster_path === null ||
-                MovieInfo?.poster_path === undefined ||
-                MovieInfo?.poster_path === "" ||
-                MovieInfo?.poster_path === "null"
-                ? ImageNotFound
-                : `${getImage}${MovieInfo?.poster_path}`
-              : TvInfo?.poster_path === null ||
-                TvInfo?.poster_path === undefined ||
-                TvInfo?.poster_path === "" ||
-                TvInfo?.poster_path === "null"
-              ? ImageNotFound
-              : `${getImage}${TvInfo?.poster_path}`
-          }
-        />
-        <S.RateWrapper>
-          <S.Title level={1}>Avaliar</S.Title>
-          <StarRatings
-            starDimension="1.5rem"
-            rating={Rate}
-            changeRating={changeRate}
-            numberOfStars={5}
-            starSpacing="15px"
-            starRatedColor="#FFD700"
-            starHoverColor="#FFD700"
-            starEmptyColor="#9e8600"
-          />
-        </S.RateWrapper>
-        <S.LikedWrapper>
-          <S.Title level={1}>Gostei</S.Title>
-          <S.HearthIcon liked={Liked} onClick={() => setLiked(!Liked)} />
-        </S.LikedWrapper>
-      </S.LeftSide>
-      <S.MidSide>
-        <S.Titles>
-          <S.Title level={1}>{`${
-            media === "media" ? MovieInfo?.title : TvInfo?.name
-          }, ${
-            media === "media"
-              ? MovieInfo?.release_date.replace("-", "/")
-              : `${TvInfo?.first_air_date.replace(
-                  /-/g,
-                  "/"
-                )} ~ ${TvInfo?.last_air_date.replace(/-/g, "/")}`
-          }`}</S.Title>
-          <S.Title level={5} opacity={0.7}>
-            {media === "media"
-              ? MovieInfo?.original_title
-              : TvInfo?.original_name}
-          </S.Title>
-        </S.Titles>
-        <S.Description>
-          {media === "media" ? MovieInfo?.overview : TvInfo?.overview}
-        </S.Description>
-        <S.GenresWrapper>
-          <S.Title level={2}>Gêneros</S.Title>
-          <S.GenresList>
-            {media === "media"
-              ? MovieInfo?.genres?.map((genre: GenresInfoProps, index) => (
-                  <S.GenresItem key={index}>{genre.name}</S.GenresItem>
-                ))
-              : TvInfo?.genres?.map((genre: GenresInfoProps, index) => (
-                  <S.GenresItem key={index}>{genre.name}</S.GenresItem>
-                ))}
-          </S.GenresList>
-        </S.GenresWrapper>
-        <S.RatesWrapper>
-          <S.Title level={3}>Avaliações</S.Title>
-          <S.IMDbRate>
-            <S.StarFullFillIcon />
-            <S.NameRateWrapper>
-              <S.Name>IMDb</S.Name>
-              <S.RateInfo>
+      {(media === "media" && MovieInfo) || (media === "tv" && TvInfo) ? (
+        <>
+          <S.LeftSide>
+            <S.PosterImage
+              src={
+                media === "media"
+                  ? MovieInfo?.poster_path === null ||
+                    MovieInfo?.poster_path === undefined ||
+                    MovieInfo?.poster_path === "" ||
+                    MovieInfo?.poster_path === "null"
+                    ? ImageNotFound
+                    : `${getImage}${MovieInfo?.poster_path}`
+                  : TvInfo?.poster_path === null ||
+                    TvInfo?.poster_path === undefined ||
+                    TvInfo?.poster_path === "" ||
+                    TvInfo?.poster_path === "null"
+                  ? ImageNotFound
+                  : `${getImage}${TvInfo?.poster_path}`
+              }
+            />
+            <S.RateWrapper>
+              <S.Title level={1}>Avaliar</S.Title>
+              <StarRatings
+                starDimension="1.5rem"
+                rating={Rate}
+                changeRating={changeRate}
+                numberOfStars={5}
+                starSpacing="15px"
+                starRatedColor="#FFD700"
+                starHoverColor="#FFD700"
+                starEmptyColor="#9e8600"
+              />
+            </S.RateWrapper>
+          </S.LeftSide>
+          <S.MidSide>
+            <S.Titles>
+              <S.Title level={1}>{`${
+                media === "media" ? MovieInfo?.title : TvInfo?.name
+              }, ${
+                media === "media"
+                  ? MovieInfo?.release_date.replace("-", "/")
+                  : `${TvInfo?.first_air_date.replace(
+                      /-/g,
+                      "/"
+                    )} ~ ${TvInfo?.last_air_date.replace(/-/g, "/")}`
+              }`}</S.Title>
+              <S.Title level={5} opacity={0.7}>
                 {media === "media"
-                  ? MovieInfo?.vote_average
-                  : TvInfo?.vote_average}
-              </S.RateInfo>
-            </S.NameRateWrapper>
-          </S.IMDbRate>
-        </S.RatesWrapper>
-        {media === "tv" && (
-          <>
-            <S.TvInfo>
-              <S.Title level={3}>Informações</S.Title>
-              <S.TvInfoWrapper>
-                <S.TvInfoItem>
-                  <S.TvInfoTitle>Temporadas</S.TvInfoTitle>
-                  <S.TvInfoValue>{TvInfo?.number_of_seasons}</S.TvInfoValue>
-                </S.TvInfoItem>
-                <S.TvInfoItem>
-                  <S.TvInfoTitle>Episódios</S.TvInfoTitle>
-                  <S.TvInfoValue>{TvInfo?.number_of_episodes}</S.TvInfoValue>
-                </S.TvInfoItem>
-                <S.TvInfoItem>
-                  <S.TvInfoTitle>Duração média dos episódios</S.TvInfoTitle>
-                  <S.TvInfoValue>
-                    {TvInfo?.episode_run_time?.map((item, index) => {
-                      return `${item}${
-                        index === 0 && TvInfo.episode_run_time.length > 1
-                          ? ":"
-                          : ""
-                      }`;
-                    })}{" "}
-                    min
-                  </S.TvInfoValue>
-                </S.TvInfoItem>
-              </S.TvInfoWrapper>
-            </S.TvInfo>
+                  ? MovieInfo?.original_title
+                  : TvInfo?.original_name}
+              </S.Title>
+            </S.Titles>
+            <S.Description>
+              {media === "media" ? MovieInfo?.overview : TvInfo?.overview}
+            </S.Description>
+            <S.GenresWrapper>
+              <S.Title level={2}>Gêneros</S.Title>
+              <S.GenresList>
+                {media === "media"
+                  ? MovieInfo?.genres?.map((genre: GenresInfoProps, index) => (
+                      <S.GenresItem key={index}>{genre.name}</S.GenresItem>
+                    ))
+                  : TvInfo?.genres?.map((genre: GenresInfoProps, index) => (
+                      <S.GenresItem key={index}>{genre.name}</S.GenresItem>
+                    ))}
+              </S.GenresList>
+            </S.GenresWrapper>
+            <S.RatesWrapper>
+              <S.Title level={3}>Avaliações</S.Title>
+              <S.IMDbRate>
+                <S.StarFullFillIcon />
+                <S.NameRateWrapper>
+                  <S.Name>IMDb</S.Name>
+                  <S.RateInfo>
+                    {media === "media"
+                      ? MovieInfo?.vote_average
+                      : TvInfo?.vote_average}
+                  </S.RateInfo>
+                </S.NameRateWrapper>
+              </S.IMDbRate>
+            </S.RatesWrapper>
+            {media === "tv" && (
+              <>
+                <S.TvInfo>
+                  <S.Title level={3}>Informações</S.Title>
+                  <S.TvInfoWrapper>
+                    <S.TvInfoItem>
+                      <S.TvInfoTitle>Temporadas</S.TvInfoTitle>
+                      <S.TvInfoValue>{TvInfo?.number_of_seasons}</S.TvInfoValue>
+                    </S.TvInfoItem>
+                    <S.TvInfoItem>
+                      <S.TvInfoTitle>Episódios</S.TvInfoTitle>
+                      <S.TvInfoValue>
+                        {TvInfo?.number_of_episodes}
+                      </S.TvInfoValue>
+                    </S.TvInfoItem>
+                    <S.TvInfoItem>
+                      <S.TvInfoTitle>Duração média dos episódios</S.TvInfoTitle>
+                      <S.TvInfoValue>
+                        {TvInfo?.episode_run_time?.map((item, index) => {
+                          return `${item}${
+                            index === 0 && TvInfo.episode_run_time.length > 1
+                              ? ":"
+                              : ""
+                          }`;
+                        })}{" "}
+                        min
+                      </S.TvInfoValue>
+                    </S.TvInfoItem>
+                  </S.TvInfoWrapper>
+                </S.TvInfo>
 
-            <S.SeasonsWrapper>
-              <S.Title level={3}>Temporadas</S.Title>
-              <S.SeasonsList>
-                {TvInfo?.seasons?.map((season, index) => (
-                  <S.SeasonsItem key={index}>
-                    <S.SeasonImage
-                      src={
-                        season.poster_path === null ||
-                        season.poster_path === undefined ||
-                        season.poster_path === "" ||
-                        season.poster_path === "null"
-                          ? ImageNotFound
-                          : `${getImage}${season.poster_path}`
-                      }
-                    />
-                    <S.SeasonInfo>
-                      <S.SeasonName>{season.name}</S.SeasonName>
-                      <S.SeasonDate>
-                        {season.air_date
-                          ? season?.air_date?.replace(/-/g, "/")
-                          : ""}
-                      </S.SeasonDate>
-                      <S.SeasonEpisodes>
-                        {season.episode_count} episódios
-                      </S.SeasonEpisodes>
-                    </S.SeasonInfo>
-                  </S.SeasonsItem>
-                ))}
-              </S.SeasonsList>
-            </S.SeasonsWrapper>
-          </>
-        )}
-        <S.SimilarMoviesWrapper>
-          <S.Title level={3}>
-            {media === "media" ? "Filmes" : "Séries"} Similares
-          </S.Title>
-          <S.SimilarMoviesList>
-            {media === "media"
-              ? SimilarMovies?.map((movie, index) => (
-                  <S.SimilarMoviesItem key={index} to={`/media/${movie.id}`}>
-                    <S.SimilarMoviesPoster
-                      src={
-                        movie?.poster_path === null ||
-                        movie?.poster_path === undefined ||
-                        movie?.poster_path === "" ||
-                        movie?.poster_path === "null"
-                          ? ImageNotFound
-                          : `${getImage}${movie?.poster_path}`
-                      }
-                    />
-                    <S.SimilarMoviesTitle>{movie.title}</S.SimilarMoviesTitle>
-                  </S.SimilarMoviesItem>
-                ))
-              : SimilarTv?.map((tv, index) => (
-                  <S.SimilarMoviesItem key={index} to={`/tv/${tv.id}`}>
-                    <S.SimilarMoviesPoster
-                      src={
-                        tv?.poster_path === null ||
-                        tv?.poster_path === undefined ||
-                        tv?.poster_path === "" ||
-                        tv?.poster_path === "null"
-                          ? ImageNotFound
-                          : `${getImage}${tv?.poster_path}`
-                      }
-                    />
-                    <S.SimilarMoviesTitle>{tv.name}</S.SimilarMoviesTitle>
-                  </S.SimilarMoviesItem>
-                ))}
-          </S.SimilarMoviesList>
-        </S.SimilarMoviesWrapper>
-      </S.MidSide>
-      <S.RightSide>
-        <S.Title level={1}>Onde assistir</S.Title>
-        {WatchProviders ? (
-          <S.WhereToWatch>
-            <S.WhereToWatchClass>
-              <span>Streaming</span>
-              <S.WhereToWatchProvidersLogo>
-                {WatchProviders.flatrate ? (
-                  WatchProviders?.flatrate?.map((item: any, index) => {
-                    return (
-                      <S.LogoProvider
+                <S.SeasonsWrapper>
+                  <S.Title level={3}>Temporadas</S.Title>
+                  <S.SeasonsList>
+                    {TvInfo?.seasons?.map((season, index) => (
+                      <S.SeasonsItem key={index}>
+                        <S.SeasonImage
+                          src={
+                            season.poster_path === null ||
+                            season.poster_path === undefined ||
+                            season.poster_path === "" ||
+                            season.poster_path === "null"
+                              ? ImageNotFound
+                              : `${getImage}${season.poster_path}`
+                          }
+                        />
+                        <S.SeasonInfo>
+                          <S.SeasonName>{season.name}</S.SeasonName>
+                          <S.SeasonDate>
+                            {season.air_date
+                              ? season?.air_date?.replace(/-/g, "/")
+                              : ""}
+                          </S.SeasonDate>
+                          <S.SeasonEpisodes>
+                            {season.episode_count} episódios
+                          </S.SeasonEpisodes>
+                        </S.SeasonInfo>
+                      </S.SeasonsItem>
+                    ))}
+                  </S.SeasonsList>
+                </S.SeasonsWrapper>
+              </>
+            )}
+            <S.SimilarMoviesWrapper>
+              <S.Title level={3}>
+                {media === "media" ? "Filmes" : "Séries"} Similares
+              </S.Title>
+              <S.SimilarMoviesList>
+                {media === "media"
+                  ? SimilarMovies?.map((movie, index) => (
+                      <S.SimilarMoviesItem
                         key={index}
-                        src={`${getImage}${item.logo_path}`}
-                      />
-                    );
-                  })
-                ) : (
-                  <S.Title level={4}>Não disponível</S.Title>
-                )}
-              </S.WhereToWatchProvidersLogo>
-            </S.WhereToWatchClass>
-            <S.WhereToWatchClass>
-              <span>Alugar</span>
-              <S.WhereToWatchProvidersLogo>
-                {WatchProviders.rent ? (
-                  WatchProviders?.rent?.map((item: any, index) => {
-                    return (
-                      <S.LogoProvider
-                        key={index}
-                        src={`${getImage}${item.logo_path}`}
-                      />
-                    );
-                  })
-                ) : (
-                  <S.Title level={4}>Não disponível</S.Title>
-                )}
-              </S.WhereToWatchProvidersLogo>
-            </S.WhereToWatchClass>
-            <S.WhereToWatchClass>
-              <span>Comprar</span>
-              <S.WhereToWatchProvidersLogo>
-                {WatchProviders.buy ? (
-                  WatchProviders?.buy?.map((item: any, index) => {
-                    return (
-                      <S.LogoProvider
-                        key={index}
-                        src={`${getImage}${item.logo_path}`}
-                      />
-                    );
-                  })
-                ) : (
-                  <S.Title level={4}>Não disponível</S.Title>
-                )}
-              </S.WhereToWatchProvidersLogo>
-            </S.WhereToWatchClass>
-          </S.WhereToWatch>
-        ) : (
-          <S.Title level={3}>Não há plataforma para se assistir</S.Title>
-        )}
-        <S.IsAdult>
-          <S.Title level={1}>Classificação</S.Title>
-          {MovieInfo?.adult
-            ? "Não recomendado para menores de 18 anos"
-            : "Livre para todos os Públicos"}
-        </S.IsAdult>
-      </S.RightSide>
+                        to={`/media/${movie.id}`}
+                      >
+                        <S.SimilarMoviesPoster
+                          src={
+                            movie?.poster_path === null ||
+                            movie?.poster_path === undefined ||
+                            movie?.poster_path === "" ||
+                            movie?.poster_path === "null"
+                              ? ImageNotFound
+                              : `${getImage}${movie?.poster_path}`
+                          }
+                        />
+                        <S.SimilarMoviesTitle>
+                          {movie.title}
+                        </S.SimilarMoviesTitle>
+                      </S.SimilarMoviesItem>
+                    ))
+                  : SimilarTv?.map((tv, index) => (
+                      <S.SimilarMoviesItem key={index} to={`/tv/${tv.id}`}>
+                        <S.SimilarMoviesPoster
+                          src={
+                            tv?.poster_path === null ||
+                            tv?.poster_path === undefined ||
+                            tv?.poster_path === "" ||
+                            tv?.poster_path === "null"
+                              ? ImageNotFound
+                              : `${getImage}${tv?.poster_path}`
+                          }
+                        />
+                        <S.SimilarMoviesTitle>{tv.name}</S.SimilarMoviesTitle>
+                      </S.SimilarMoviesItem>
+                    ))}
+              </S.SimilarMoviesList>
+            </S.SimilarMoviesWrapper>
+          </S.MidSide>
+          <S.RightSide>
+            <S.Title level={1}>Onde assistir</S.Title>
+            {WatchProviders ? (
+              <S.WhereToWatch>
+                <S.WhereToWatchClass>
+                  <span>Streaming</span>
+                  <S.WhereToWatchProvidersLogo>
+                    {WatchProviders.flatrate ? (
+                      WatchProviders?.flatrate?.map((item: any, index) => {
+                        return (
+                          <S.LogoProvider
+                            key={index}
+                            src={`${getImage}${item.logo_path}`}
+                          />
+                        );
+                      })
+                    ) : (
+                      <S.Title level={4}>Não disponível</S.Title>
+                    )}
+                  </S.WhereToWatchProvidersLogo>
+                </S.WhereToWatchClass>
+                <S.WhereToWatchClass>
+                  <span>Alugar</span>
+                  <S.WhereToWatchProvidersLogo>
+                    {WatchProviders.rent ? (
+                      WatchProviders?.rent?.map((item: any, index) => {
+                        return (
+                          <S.LogoProvider
+                            key={index}
+                            src={`${getImage}${item.logo_path}`}
+                          />
+                        );
+                      })
+                    ) : (
+                      <S.Title level={4}>Não disponível</S.Title>
+                    )}
+                  </S.WhereToWatchProvidersLogo>
+                </S.WhereToWatchClass>
+                <S.WhereToWatchClass>
+                  <span>Comprar</span>
+                  <S.WhereToWatchProvidersLogo>
+                    {WatchProviders.buy ? (
+                      WatchProviders?.buy?.map((item: any, index) => {
+                        return (
+                          <S.LogoProvider
+                            key={index}
+                            src={`${getImage}${item.logo_path}`}
+                          />
+                        );
+                      })
+                    ) : (
+                      <S.Title level={4}>Não disponível</S.Title>
+                    )}
+                  </S.WhereToWatchProvidersLogo>
+                </S.WhereToWatchClass>
+              </S.WhereToWatch>
+            ) : (
+              <S.Title level={3}>Não há plataforma para se assistir</S.Title>
+            )}
+            <S.IsAdult>
+              <S.Title level={1}>Classificação</S.Title>
+              {MovieInfo?.adult
+                ? "Não recomendado para menores de 18 anos"
+                : "Livre para todos os Públicos"}
+            </S.IsAdult>
+          </S.RightSide>
+        </>
+      ) : (
+        <S.LoadingContainer>
+          <S.ReactLoadings
+            type={"bubbles"}
+            color={"#FFFFFF"}
+            height={"100%"}
+            width={"100%"}
+          />
+          <S.Label>Carregando...</S.Label>
+        </S.LoadingContainer>
+      )}
     </S.Container>
   );
 };
