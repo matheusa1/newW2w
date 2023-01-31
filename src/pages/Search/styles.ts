@@ -37,12 +37,14 @@ export const Button = styled.button<Buttons>`
 	font-family: Poppins, Rubik, sans-serif;
 
 	border: none;
-	cursor: pointer;
+
+	transition: all 0.2s ease-in-out;
 
 	border: ${(props) => (props.active ? '2px solid #66D6EF' : 'none')};
 
 	:hover {
-		background: #1a2a4a;
+		background: ${({ active }) => !active && '#1a2a4a'};
+		cursor: ${({ active }) => !active && 'pointer'};
 	}
 `
 
@@ -76,6 +78,17 @@ export const Input = styled.input`
 
 	@media (max-width: 69rem) {
 		width: 100%;
+	}
+
+	transition: all 0.2s ease-in-out;
+
+	:hover {
+		background: #c0c0c0;
+	}
+
+	:focus {
+		background: #fff;
+		border: 2px solid #66d6ef;
 	}
 `
 

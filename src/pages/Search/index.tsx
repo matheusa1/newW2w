@@ -97,7 +97,8 @@ const Search = () => {
 	const changeButton = (number: number) => {
 		setButtonSelect(number)
 		setPage(1)
-		localStorage.clear()
+		const data = { item: number, page: 1 }
+		localStorage.setItem('page', JSON.stringify(data))
 	}
 
 	const resetResults = () => {
@@ -142,14 +143,14 @@ const Search = () => {
 					onClick={() => changeButton(2)}
 					active={buttonSelect === 2 ? true : false}
 				>
-					Séries
+					Séries e Animes
 				</S.Button>
 			</S.Buttons>
 			<S.InputWrapper>
 				<S.Text>O que está procurando?</S.Text>
 				<S.Debounce
 					debounceTimeout={500}
-					placeholder='Filme, série, anime, plataforma'
+					placeholder='Filme, série, anime'
 					value={search}
 					onChange={(event: any) => setSearch(event.target.value)}
 					element={S.Input}
