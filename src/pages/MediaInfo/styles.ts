@@ -17,7 +17,7 @@ interface LikedProps {
 
 export const Container = styled.div`
   display: flex;
-  padding: 3rem 3rem;
+  padding: 1.5rem 3rem;
   gap: 3rem;
 
   @media (max-width: 34.3rem) {
