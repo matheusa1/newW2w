@@ -69,6 +69,8 @@ const Search = () => {
 
 				setResults(response.data.results)
 				setTotalResults(response.data.total_results)
+				const data = { item: buttonSelect, page: page, search: search }
+				localStorage.setItem('page', JSON.stringify(data))
 			}
 			if (buttonSelect === 2) {
 				let response
@@ -82,6 +84,9 @@ const Search = () => {
 
 				setResultsTv(response.data.results)
 				setTotalResults(response.data.total_results)
+
+				const data = { item: buttonSelect, page: page, search: search }
+				localStorage.setItem('page', JSON.stringify(data))
 			}
 		} catch (error) {
 			console.log(error)
@@ -90,14 +95,14 @@ const Search = () => {
 
 	const changePage = (number: number) => {
 		setPage(number)
-		const data = { item: buttonSelect, page: number }
+		const data = { item: buttonSelect, page: number, search: search }
 		localStorage.setItem('page', JSON.stringify(data))
 	}
 
 	const changeButton = (number: number) => {
 		setButtonSelect(number)
 		setPage(1)
-		const data = { item: number, page: 1 }
+		const data = { item: number, page: 1, search: search }
 		localStorage.setItem('page', JSON.stringify(data))
 	}
 
@@ -123,10 +128,12 @@ const Search = () => {
 		if (data.item === 1) {
 			setButtonSelect(1)
 			setPage(data.page)
+			setSearch(data.search)
 		}
 		if (data.item === 2) {
 			setButtonSelect(2)
 			setPage(data.page)
+			setSearch(data.search)
 		}
 	}, [])
 
