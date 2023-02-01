@@ -78,6 +78,11 @@ export const InputIcon = styled(BsSearch)`
 export const SwiperWrapper = styled(Swiper)`
 	width: 1300px;
 	height: 580px;
+
+	@media (max-width: 98rem) {
+		width: 85%;
+		height: auto;
+	}
 `
 
 export const SwiperSlideCustom = styled(SwiperSlide)`

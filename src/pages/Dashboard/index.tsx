@@ -98,7 +98,7 @@ const Dashboard = () => {
 							return (
 								<S.SwiperSlideCustom key={index}>
 									<S.SwiperAnchor href={`/media/${movie.id}`}>
-										<S.SwiperImage src={`${getImage}${movie?.backdrop_path}`} />
+										<S.SwiperImage src={`${getImage}${windowWidth > 799 ? movie?.backdrop_path : movie.poster_path}`} />
 										<S.SwiperText>{movie?.title}</S.SwiperText>
 									</S.SwiperAnchor>
 								</S.SwiperSlideCustom>
