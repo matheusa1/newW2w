@@ -1,6 +1,8 @@
 import { FormEvent, useEffect, useState } from 'react'
 import Axios from 'axios'
-import 'react-responsive-carousel/lib/styles/carousel.min.css'
+import 'swiper/css'
+import 'swiper/css/effect-cards'
+import { Autoplay, EffectCards } from 'swiper'
 
 import Title from '../../components/Title'
 
@@ -35,7 +37,7 @@ const Dashboard = () => {
 		document.documentElement.clientWidth ||
 		document.body.clientWidth
 
-	const [topMovies, setTopMovies] = useState([])
+	const [topMovies, setTopMovies] = useState<MovieInfo[] | undefined>()
 
 	const getTopMovies = async () => {
 		try {
@@ -78,41 +80,31 @@ const Dashboard = () => {
 					<S.InputIcon />
 				</S.SubmitIcon>
 			</S.InputWrapper>
-			{topMovies.length > 0 ? (
+			{topMovies && topMovies?.length > 0 ? (
 				<>
 					<Title
 						px='2.5rem'
 						text='DESTAQUES'
 					/>
-					<S.CarouselWrapper>
-						<S.CarouselRoot
-							centerMode
-							centerSlidePercentage={100}
-							dynamicHeight
-							autoPlay
-							infiniteLoop
-							stopOnHover
-							showThumbs={false}
-							showStatus={false}
-							showArrows={true}
-						>
-							{topMovies.map((movie: MovieInfo, index) => (
-								<S.CarouselItem
-									to={`/media/${movie.id}`}
-									key={index}
-								>
-									<img
-										src={`${getImage}${
-											windowWidth > 550
-												? movie?.backdrop_path
-												: movie?.poster_path
-										}`}
-									/>
-									<S.CarouselText>{movie?.title}</S.CarouselText>
-								</S.CarouselItem>
-							))}
-						</S.CarouselRoot>
-					</S.CarouselWrapper>
+					<S.SwiperWrapper
+						effect={'cards'}
+						modules={[EffectCards, Autoplay]}
+						autoplay={{
+							delay: 2500,
+							disableOnInteraction: true,
+						}}
+					>
+						{topMovies?.map((movie, index) => {
+							return (
+								<S.SwiperSlideCustom key={index}>
+									<S.SwiperAnchor href={`/media/${movie.id}`}>
+										<S.SwiperImage src={`${getImage}${movie?.backdrop_path}`} />
+										<S.SwiperText>{movie?.title}</S.SwiperText>
+									</S.SwiperAnchor>
+								</S.SwiperSlideCustom>
+							)
+						})}
+					</S.SwiperWrapper>
 				</>
 			) : (
 				<S.LoadingContainer>
