@@ -12,6 +12,7 @@ export const GlobalStyles = createGlobalStyle`
     max-width: 100vw;
     width: 100%;
     height: 100%;
+    overflow-x: hidden;
 
     &::-webkit-scrollbar {
       width: 10px;
